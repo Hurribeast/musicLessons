@@ -9,8 +9,8 @@ import java.awt.event.WindowEvent;
 
 public class MainWindow extends JFrame {
     private JMenuBar menuBar;
-    private JMenu lesson,research;
-    private JMenuItem insert,modify,delete,firstResearch,secondResearch,thirdResearch,listing ;
+    private JMenu home,lesson,research,listing;
+    private JMenuItem returnHome,insert,modify,delete,firstResearch,secondResearch,thirdResearch,goToListing;
     private JPanel welcomePanel;
     private Container container;
 
@@ -26,6 +26,13 @@ public class MainWindow extends JFrame {
         //Création de la JMenuBar
         menuBar = new JMenuBar();
         setJMenuBar(menuBar);
+        //Création de l'onglet Home
+        home = new JMenu("Home");
+        returnHome = new JMenuItem("Home");
+        returnHome.addActionListener(new HomeListener());
+        home.add(returnHome);
+        menuBar.add(home);
+
         //Création de l'onglet Lessons
         lesson = new JMenu("Lessons");
         insert = new JMenuItem("Insert");
@@ -53,9 +60,13 @@ public class MainWindow extends JFrame {
         menuBar.add(research);
 
         //Création de l'onglet Listing
-        listing = new JMenuItem("Listing");
-        listing.addActionListener(new ListingListener());
+        listing = new JMenu("Listing");
+        goToListing = new JMenuItem("Listing");
+        goToListing.addActionListener(new ListingListener());
+        listing.add(goToListing);
         menuBar.add(listing);
+
+
 
         //Initialisation du container
         container = this.getContentPane();
@@ -65,6 +76,17 @@ public class MainWindow extends JFrame {
         container.add(welcomePanel,BorderLayout.CENTER);
 
         setVisible(true);
+    }
+
+    private class HomeListener implements ActionListener
+    {
+        public void actionPerformed (ActionEvent event)
+        {
+            container.removeAll();
+            container.add(new WelcomePanel());
+            container.repaint();
+            MainWindow.this.setVisible(true);
+        }
     }
 
     private class InsertListener implements ActionListener
