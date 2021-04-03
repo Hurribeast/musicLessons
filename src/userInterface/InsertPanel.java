@@ -4,12 +4,19 @@ import javax.swing.*;
 import java.awt.*;
 
 public class InsertPanel extends JPanel {
-    private JLabel message;
-    public  InsertPanel(){
-        message = new JLabel("<html><h1>InsertPanel Contenu à changer</h1></html>");
-        message.setHorizontalAlignment(SwingConstants.CENTER);
+    private JLabel title;
+    private MainWindow mainWindow;
+    public  InsertPanel(MainWindow mainWindow){
+        this.mainWindow = mainWindow;
+        title = new JLabel("<html><h1>InsertPanel EN COURS</h1></html>");
+        title.setHorizontalAlignment(SwingConstants.CENTER);
         this.setLayout(new BorderLayout());
-        this.add(message, BorderLayout.CENTER);
+        this.add(title, BorderLayout.NORTH);
 
+        InsertForm insertForm = new InsertForm(mainWindow);
+        this.add(insertForm, BorderLayout.CENTER);
+        InsertButtonPanel insertButtonPanel = new InsertButtonPanel(mainWindow);
+        this.add(insertButtonPanel,BorderLayout.SOUTH);
     }
+
 }

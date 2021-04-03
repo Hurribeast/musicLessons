@@ -94,7 +94,7 @@ public class MainWindow extends JFrame {
         public void actionPerformed (ActionEvent event)
         {
             container.removeAll();
-            container.add(new InsertPanel());
+            container.add(new InsertPanel(MainWindow.this));
             container.repaint();
             MainWindow.this.setVisible(true);
         }
@@ -161,7 +161,4 @@ public class MainWindow extends JFrame {
             MainWindow.this.setVisible(true);
         }
     }
-
-
-
 }

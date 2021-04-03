@@ -3,9 +3,9 @@ package model;
 import java.util.Date;
 
 public class Instrument {
-    private int heightMax;
-    private int widthMax;
-    private int weightMax;
+    private Integer heightMax;
+    private Integer widthMax;
+    private Integer weightMax;
     private String name;
     private String description;
 }
