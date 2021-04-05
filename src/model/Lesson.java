@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class Lesson {
 
+
     private Date date;
     private Boolean isNightClass;
     private Integer roomNumber;
@@ -54,5 +55,19 @@ public class Lesson {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "Lesson{" +
+                "date=" + date +
+                ", isNightClass=" + isNightClass +
+                ", roomNumber=" + roomNumber +
+                ", minutesDuration=" + minutesDuration +
+                ", description='" + description + '\'' +
+                ", commentary='" + commentary + '\'' +
+                ", goalDescription='" + goalDescription + '\'' +
+                ", price=" + price +
+                '}';
     }
 }

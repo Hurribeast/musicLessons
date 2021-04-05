@@ -15,8 +15,7 @@ public class InsertPanel extends JPanel {
 
         InsertForm insertForm = new InsertForm(mainWindow);
         this.add(insertForm, BorderLayout.CENTER);
-        InsertButtonPanel insertButtonPanel = new InsertButtonPanel(mainWindow);
+        InsertButtonPanel insertButtonPanel = new InsertButtonPanel(mainWindow,insertForm);
         this.add(insertButtonPanel,BorderLayout.SOUTH);
     }
-
 }
