@@ -1,5 +1,7 @@
 package userInterface;
 
+import exception.ConnectionException;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -94,7 +96,11 @@ public class MainWindow extends JFrame {
         public void actionPerformed (ActionEvent event)
         {
             container.removeAll();
-            container.add(new InsertPanel(MainWindow.this));
+            try {
+                container.add(new InsertPanel(MainWindow.this));
+            } catch (ConnectionException e) {
+                e.printStackTrace();
+            }
             container.repaint();
             MainWindow.this.setVisible(true);
         }
