@@ -1,5 +1,7 @@
 package model;
 
+import exception.DescriptionException;
+
 import java.util.Date;
 
 public class Lesson {
@@ -14,7 +16,7 @@ public class Lesson {
     private String goalDescription;
     private Double price;
 
-    public Lesson(Date date, Boolean isNightClass, Integer roomNumber, Integer minutesDuration, String description, String commentary, String goalDescription, Double price) {
+    public Lesson(Date date, Boolean isNightClass, Integer roomNumber, Integer minutesDuration, String description, String commentary, String goalDescription, Double price) throws DescriptionException {
         setDate(date);
         setNightClass(isNightClass);
         setRoomNumber(roomNumber);
@@ -41,20 +43,70 @@ public class Lesson {
         this.minutesDuration = minutesDuration;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescription(String description) throws DescriptionException {
+        if(description.isEmpty()){
+            throw new DescriptionException(description);
+        }
+        else{
+            this.description = description;
+        }
+
     }
 
     public void setCommentary(String commentary) {
-        this.commentary = commentary;
+        if(commentary.isEmpty()){
+            this.commentary = null;
+        }
+        else{
+            this.commentary = commentary;
+        }
     }
 
     public void setGoalDescription(String goalDescription) {
-        this.goalDescription = goalDescription;
+        if(goalDescription.isEmpty()){
+            this.goalDescription = null;
+        }
+        else{
+            this.goalDescription = goalDescription;
+        }
     }
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+
+
+    public Date getDate() {
+        return date;
+    }
+
+    public Boolean getNightClass() {
+        return isNightClass;
+    }
+
+    public Integer getRoomNumber() {
+        return roomNumber;
+    }
+
+    public Integer getMinutesDuration() {
+        return minutesDuration;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getCommentary() {
+        return commentary;
+    }
+
+    public String getGoalDescription() {
+        return goalDescription;
+    }
+
+    public Double getPrice() {
+        return price;
     }
 
     @Override

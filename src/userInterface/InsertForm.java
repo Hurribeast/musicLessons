@@ -1,21 +1,23 @@
 package userInterface;
 
+import controller.Control;
+import exception.ConnectionException;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class InsertForm extends JPanel {
-        private JLabel description, roomNumber,date,minuteDuration,price,isNightClass,commentary,goalDescription ;
-        private JTextField descriptionField,priceField;
+        private JLabel description, roomNumber,date,minuteDuration,price,isNightClass,commentary,goalDescription,category ;
+        private JTextField descriptionField;
         private JTextArea commentaryField,goalDescriptionField;
-        private JSpinner roomNumberField,dateField,minuteDurationField;
+        private JSpinner roomNumberField,dateField,minuteDurationField,priceField;
         private JCheckBox isNightClassField;
+        private JComboBox categoryField;
+        private String [] categories;
         private MainWindow mainWindow;
 
-        public InsertForm(MainWindow mainWindow){
+        public InsertForm(MainWindow mainWindow) throws ConnectionException {
                 this.mainWindow = mainWindow;
                 //Init des JLabel
                 description = new JLabel("Description :");
@@ -34,10 +36,13 @@ public class InsertForm extends JPanel {
                 commentary.setHorizontalAlignment(SwingConstants.RIGHT);
                 goalDescription = new JLabel("Goal Description :");
                 goalDescription.setHorizontalAlignment(SwingConstants.RIGHT);
+                category = new JLabel("Teacher :");
 
                 //Init des champs
+
                 descriptionField = new JTextField();
-                roomNumberField = new JSpinner();
+                SpinnerModel modelRoomNumber = new SpinnerNumberModel(1, 1, 40, 1);
+                roomNumberField = new JSpinner(modelRoomNumber);
 
                 dateField = new JSpinner();
                 SpinnerDateModel model = new SpinnerDateModel();
@@ -45,14 +50,18 @@ public class InsertForm extends JPanel {
                 JSpinner.DateEditor editor = new JSpinner.DateEditor(dateField, "dd-MM-yyyy");
                 dateField.setEditor(editor);
 
-                minuteDurationField = new JSpinner();
-                priceField = new JTextField();
+                SpinnerModel modelDuration = new SpinnerNumberModel(60, 60, 240, 30);
+                minuteDurationField = new JSpinner(modelDuration);
+                SpinnerModel priceModel = new SpinnerNumberModel(0.00, 0.00, 200, 0.01);
+                priceField = new JSpinner(priceModel);
                 isNightClassField = new JCheckBox();
                 commentaryField = new JTextArea();
                 goalDescriptionField = new JTextArea();
+                categories = getCategories();
+                categoryField = new JComboBox();
 
                 //Set du GridLayout
-                this.setLayout(new GridLayout(8,2,5,5));
+                this.setLayout(new GridLayout(9,2,5,5));
                 //Ajout des champs au GridLayout
                 this.add(description);
                 this.add(descriptionField);
@@ -70,15 +79,15 @@ public class InsertForm extends JPanel {
                 this.add(new JScrollPane(commentaryField));
                 this.add(goalDescription);
                 this.add(new JScrollPane(goalDescriptionField));
+                this.add(category);
+                this.add(categoryField);
 
         }
         public String getDescriptionField() {
                 return descriptionField.getText();
         }
-        // ATTENTION ON NE PEUT PAS RENTER DE TEXTE
         public Double getPriceField() {
-                String price = priceField.getText();
-                return Double.parseDouble(price);
+                return (Double) priceField.getValue();
         }
         public String getCommentaryField() {
                 return commentaryField.getText();
@@ -98,4 +107,8 @@ public class InsertForm extends JPanel {
         public Boolean getIsNightClassField() {
                 return isNightClassField.isSelected();
         }
+        public String [] getCategories() throws ConnectionException {
+                return new Control().getCategoriesString();
+        }
+
 }
