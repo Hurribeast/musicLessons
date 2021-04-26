@@ -1,15 +1,12 @@
 package userInterface;
 
 import controller.InstrumentOfTeacherController;
-import dbAccess.InstrumentsOfTeachersDB;
 import exception.ConnectionException;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 
 public class InstrumentsOfTeacher extends JPanel {
@@ -42,7 +39,7 @@ public class InstrumentsOfTeacher extends JPanel {
             try {
                 Container container = mainWindow.getContentPane();
                 container.removeAll();
-                container.add(new InstrumentsOfTeacherDisplay(controller.getData(nameOfTheTeacher.getText())));
+                container.add(new InstrumentsOfTeacherPanel(controller.getData(nameOfTheTeacher.getText())));
                 container.repaint();
                 mainWindow.setVisible(true);
             } catch(ConnectionException exception) {

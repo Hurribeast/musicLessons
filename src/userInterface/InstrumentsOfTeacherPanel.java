@@ -3,7 +3,7 @@ package userInterface;
 import javax.swing.*;
 import java.awt.*;
 
-public class InstrumentsOfTeacherDisplay extends JPanel {
+public class InstrumentsOfTeacherPanel extends JPanel {
 
     final int NB_COLUMNS = 8;
 
@@ -12,7 +12,7 @@ public class InstrumentsOfTeacherDisplay extends JPanel {
     private String [][] data;
     private String [] columnsNames;
 
-    public InstrumentsOfTeacherDisplay(String [][] data) {
+    public InstrumentsOfTeacherPanel(String [][] data) {
         this.data = data;
         setColumnsNames();
         setLayout(new BorderLayout());

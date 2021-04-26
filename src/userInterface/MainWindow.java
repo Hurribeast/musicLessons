@@ -12,7 +12,7 @@ import java.awt.event.WindowEvent;
 public class MainWindow extends JFrame {
     private JMenuBar menuBar;
     private JMenu home,lesson,research,listing;
-    private JMenuItem returnHome,insert,modify,delete,instrumentsOfTeacher,secondResearch,thirdResearch,goToListing;
+    private JMenuItem returnHome,insert,modify,delete,instrumentsOfTeacher,lessonsOfTeacher,thirdResearch,goToListing;
     private JPanel welcomePanel;
     private Container container;
 
@@ -50,14 +50,14 @@ public class MainWindow extends JFrame {
 
         //Création de l'onglet Research
         research = new JMenu("Research");
-        instrumentsOfTeacher = new JMenuItem("First Research");
+        instrumentsOfTeacher = new JMenuItem("Teacher's instruments");
         instrumentsOfTeacher.addActionListener(new InstrumentsOfTeacherListener());
-        secondResearch = new JMenuItem("Second Research");
-        secondResearch.addActionListener(new SecondResearchListener());
+        lessonsOfTeacher = new JMenuItem("Teacher's lessons");
+        lessonsOfTeacher.addActionListener(new LessonsOfATeacher());
         thirdResearch = new JMenuItem("Third Research");
         thirdResearch.addActionListener(new ThirdResearchListener());
         research.add(instrumentsOfTeacher);
-        research.add(secondResearch);
+        research.add(lessonsOfTeacher);
         research.add(thirdResearch);
         menuBar.add(research);
 
@@ -145,12 +145,16 @@ public class MainWindow extends JFrame {
             MainWindow.this.setVisible(true);
         }
     }
-    private class SecondResearchListener implements ActionListener
+    private class LessonsOfATeacher implements ActionListener
     {
         public void actionPerformed (ActionEvent event)
         {
             container.removeAll();
-            container.add(new SecondResearchPanel());
+            try {
+                container.add(new LessonsOfTeacher(getWindow()));
+            } catch(ConnectionException exception) {
+                exception.printStackTrace();
+            }
             container.repaint();
             MainWindow.this.setVisible(true);
         }

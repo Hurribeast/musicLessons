@@ -11,7 +11,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class InstrumentsOfTeachersDB {
+
     private Connection connection;
+
     public InstrumentsOfTeachersDB() throws ConnectionException {
         setConnection(SingletonConnection.getInstance());
     }
