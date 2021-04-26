@@ -110,5 +110,4 @@ public class InsertForm extends JPanel {
         public String [] getCategories() throws ConnectionException {
                 return new Control().getCategoriesString();
         }
-
 }

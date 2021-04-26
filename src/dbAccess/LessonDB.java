@@ -6,24 +6,25 @@ import model.Lesson;
 import java.sql.*;
 
 public class LessonDB {
+
     private Connection connection;
+
     public LessonDB() throws ConnectionException {
         setConnection(SingletonConnection.getInstance());
-
     }
+
     public void setConnection(Connection connection) {
         this.connection = connection;
     }
 
     public void addNewLesson(Lesson lesson) {
-
         try {
             String sql= "insert into lesson (is_night_class,room_number,minutes_duration,lesson_description,commentary,lesson_date,goals_description,price,teacher_fk,instrument_fk)" +
                     "values(?,?,?,?,?,?,?,?,?,?)";
 
             java.sql.Date sqlBirthdate = new java.sql.Date(lesson.getDate().getTime());
 
-            PreparedStatement statement=connection.prepareStatement(sql);
+            PreparedStatement statement = connection.prepareStatement(sql);
             statement.setBoolean(1,lesson.getNightClass());
             statement.setInt(2,lesson.getRoomNumber());
             statement.setInt(3,lesson.getMinutesDuration());

@@ -30,7 +30,6 @@ public class Control {
     }
 
     public String [] getCategoriesString() {
-
         return categoryBusiness.getCategoriesString();
     }
 }

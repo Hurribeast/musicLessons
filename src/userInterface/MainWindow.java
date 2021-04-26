@@ -12,7 +12,7 @@ import java.awt.event.WindowEvent;
 public class MainWindow extends JFrame {
     private JMenuBar menuBar;
     private JMenu home,lesson,research,listing;
-    private JMenuItem returnHome,insert,modify,delete,firstResearch,secondResearch,thirdResearch,goToListing;
+    private JMenuItem returnHome,insert,modify,delete,instrumentsOfTeacher,secondResearch,thirdResearch,goToListing;
     private JPanel welcomePanel;
     private Container container;
 
@@ -50,13 +50,13 @@ public class MainWindow extends JFrame {
 
         //Création de l'onglet Research
         research = new JMenu("Research");
-        firstResearch = new JMenuItem("First Research");
-        firstResearch.addActionListener(new FirstResearchListener());
+        instrumentsOfTeacher = new JMenuItem("First Research");
+        instrumentsOfTeacher.addActionListener(new InstrumentsOfTeacherListener());
         secondResearch = new JMenuItem("Second Research");
         secondResearch.addActionListener(new SecondResearchListener());
         thirdResearch = new JMenuItem("Third Research");
         thirdResearch.addActionListener(new ThirdResearchListener());
-        research.add(firstResearch);
+        research.add(instrumentsOfTeacher);
         research.add(secondResearch);
         research.add(thirdResearch);
         menuBar.add(research);
@@ -78,6 +78,10 @@ public class MainWindow extends JFrame {
         container.add(welcomePanel,BorderLayout.CENTER);
 
         setVisible(true);
+    }
+
+    public MainWindow getWindow() {
+        return this;
     }
 
     private class HomeListener implements ActionListener
@@ -126,12 +130,17 @@ public class MainWindow extends JFrame {
         }
     }
 
-    private class FirstResearchListener implements ActionListener
-    {
+    private class InstrumentsOfTeacherListener implements ActionListener
+    {   // Il faut ajouter la gestion de l'erreur de connexion içi
         public void actionPerformed (ActionEvent event)
         {
             container.removeAll();
-            container.add(new FirstResearchPanel());
+            try {
+                container.add(new InstrumentsOfTeacher(getWindow()));
+            } catch(ConnectionException exception) {
+                exception.printStackTrace();
+            }
+
             container.repaint();
             MainWindow.this.setVisible(true);
         }

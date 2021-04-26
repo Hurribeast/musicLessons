@@ -18,6 +18,6 @@ public class CategoryBusiness {
     public String[] getCategoriesString() {
         String [] aaa =  {"aaa","aaa","aaa"};
         return  aaa;
-        //category.getGategories();
+        //category.getCategories();
     }
 }

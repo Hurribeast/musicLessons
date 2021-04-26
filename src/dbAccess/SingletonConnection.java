@@ -12,7 +12,7 @@ public class SingletonConnection {
             try {
                 connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/music_lessons",
                         "root",
-                        "Florent16");
+                        "mgbvDYRH151198");
             }
             catch (SQLException exception) {
                 throw new ConnectionException();
