@@ -77,5 +77,7 @@ public class Control {
 
     public void deleteLesson(Lesson lesson) {
         lessonBusiness.deleteLesson(lesson);
+    public String [] getCategoriesString() {
+        return categoryBusiness.getCategoriesString();
     }
 }

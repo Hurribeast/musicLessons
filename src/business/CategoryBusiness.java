@@ -15,4 +15,10 @@ public class CategoryBusiness {
     public void setCategory() throws ConnectionException {
         category = new CategoryDB();
     }
+
+    public String[] getCategoriesString() {
+        String [] aaa =  {"aaa","aaa","aaa"};
+        return  aaa;
+        //category.getCategories();
+    }
 }

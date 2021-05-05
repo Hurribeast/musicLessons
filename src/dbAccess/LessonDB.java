@@ -10,11 +10,13 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 public class LessonDB {
+
     private Connection connection;
+
     public LessonDB() throws ConnectionException {
         setConnection(SingletonConnection.getInstance());
-
     }
+
     public void setConnection(Connection connection) {
         this.connection = connection;
     }
