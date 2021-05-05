@@ -3,11 +3,12 @@ package model;
 import exception.DescriptionException;
 
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class Lesson {
 
-
-    private Date date;
+    private Integer id;
+    private GregorianCalendar date;
     private Boolean isNightClass;
     private Integer roomNumber;
     private Integer minutesDuration;
@@ -15,8 +16,10 @@ public class Lesson {
     private String commentary;
     private String goalDescription;
     private Double price;
+    private Integer teacherFk;
+    private Integer instrumentFk;
 
-    public Lesson(Date date, Boolean isNightClass, Integer roomNumber, Integer minutesDuration, String description, String commentary, String goalDescription, Double price) throws DescriptionException {
+    public Lesson(GregorianCalendar date, Boolean isNightClass, Integer roomNumber, Integer minutesDuration, String description, String commentary, String goalDescription, Double price,Integer teacherFk,Integer instrumentFk) throws DescriptionException {
         setDate(date);
         setNightClass(isNightClass);
         setRoomNumber(roomNumber);
@@ -25,9 +28,28 @@ public class Lesson {
         setCommentary(commentary);
         setGoalDescription(goalDescription);
         setPrice(price);
+        setTeacherFk(teacherFk);
+        setInstrumentFk(instrumentFk);
+    }
+    public Lesson(Integer id, GregorianCalendar date, Boolean isNightClass, Integer roomNumber, Integer minutesDuration, String description, String commentary, String goalDescription, Double price,Integer teacherFk,Integer instrumentFk) throws DescriptionException {
+        setId(id);
+        setDate(date);
+        setNightClass(isNightClass);
+        setRoomNumber(roomNumber);
+        setMinutesDuration(minutesDuration);
+        setDescription(description);
+        setCommentary(commentary);
+        setGoalDescription(goalDescription);
+        setPrice(price);
+        setTeacherFk(teacherFk);
+        setInstrumentFk(instrumentFk);
     }
 
-    public void setDate(Date date) {
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setDate(GregorianCalendar date) {
         this.date = date;
     }
 
@@ -44,7 +66,7 @@ public class Lesson {
     }
 
     public void setDescription(String description) throws DescriptionException {
-        if(description.isEmpty()){
+        if(description.isBlank()){
             throw new DescriptionException(description);
         }
         else{
@@ -54,19 +76,22 @@ public class Lesson {
     }
 
     public void setCommentary(String commentary) {
-        if(commentary.isEmpty()){
+        if(commentary == null ||commentary.isBlank()){
             this.commentary = null;
         }
-        else{
+        else {
             this.commentary = commentary;
         }
+
     }
 
-    public void setGoalDescription(String goalDescription) {
-        if(goalDescription.isEmpty()){
+    public void setGoalDescription(String goalDescription ) {
+        if( goalDescription == null ||
+
+                goalDescription.isBlank()){
             this.goalDescription = null;
         }
-        else{
+        else {
             this.goalDescription = goalDescription;
         }
     }
@@ -75,9 +100,19 @@ public class Lesson {
         this.price = price;
     }
 
+    public void setTeacherFk(Integer teacherFk) {
+        this.teacherFk = teacherFk;
+    }
 
+    public void setInstrumentFk(Integer instrumentFk) {
+        this.instrumentFk = instrumentFk;
+    }
 
-    public Date getDate() {
+    public Integer getId() {
+        return id;
+    }
+
+    public GregorianCalendar getDate() {
         return date;
     }
 
@@ -109,6 +144,14 @@ public class Lesson {
         return price;
     }
 
+    public Integer getTeacherFk() {
+        return teacherFk;
+    }
+
+    public Integer getInstrumentFk() {
+        return instrumentFk;
+    }
+
     @Override
     public String toString() {
         return "Lesson{" +
@@ -120,6 +163,8 @@ public class Lesson {
                 ", commentary='" + commentary + '\'' +
                 ", goalDescription='" + goalDescription + '\'' +
                 ", price=" + price +
+                ", teacherFk=" + teacherFk +
+                ", instrumentFk=" + instrumentFk +
                 '}';
     }
 }

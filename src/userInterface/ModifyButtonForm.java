@@ -1,6 +1,5 @@
 package userInterface;
 
-import business.LessonBusiness;
 import controller.Control;
 import exception.ConnectionException;
 import exception.DescriptionException;
@@ -11,17 +10,19 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class InsertButtonPanel extends JPanel {
-    JButton cancelButton,validateButton;
-    MainWindow mainWindow;
-    InsertForm insertForm;
-    public InsertButtonPanel(MainWindow mainWindow,InsertForm insertForm){
+public class ModifyButtonForm extends JPanel {
+    private JButton cancelButton,validateButton;
+    private MainWindow mainWindow;
+    private ModifyForm modifyForm;
+    private Lesson lesson;
+    public ModifyButtonForm(MainWindow mainWindow, ModifyForm modifyForm, Lesson lesson) {
         this.mainWindow = mainWindow;
-        this.insertForm = insertForm;
+        this.modifyForm = modifyForm;
+        this.lesson = lesson;
         cancelButton = new JButton("Cancel");
-        cancelButton.addActionListener(new CancelListener());
+        cancelButton.addActionListener(new ModifyButtonForm.CancelListener());
         validateButton = new JButton("Confirm");
-        validateButton.addActionListener(new ValidationListener());
+        validateButton.addActionListener(new ModifyButtonForm.ValidationListener());
 
 
         this.setLayout(new FlowLayout());
@@ -34,10 +35,10 @@ public class InsertButtonPanel extends JPanel {
         public void actionPerformed (ActionEvent event)
         {
             try {
-                int choice =JOptionPane.showConfirmDialog(null,"Souhaitez vous vraiment insérer ce cours ?","Select an option",JOptionPane.YES_OPTION);
+                int choice =JOptionPane.showConfirmDialog(null,"Souhaitez vous vraiment modifier ce cours ?","Select an option",JOptionPane.YES_OPTION);
                 if(choice == 0){
-                    Lesson lesson = new Lesson(insertForm.getDateField(),insertForm.getIsNightClassField(),insertForm.getRoomNumberField(),insertForm.getMinuteDurationField(),insertForm.getDescriptionField(),insertForm.getCommentaryField(),insertForm.getGoalDescriptionField(),insertForm.getPriceField(),insertForm.getTeacherField(),insertForm.getInstrumentField());
-                    new Control().addNewLesson(lesson);
+                    Lesson newLesson = new Lesson(lesson.getId(), modifyForm.getDateField(),modifyForm.getIsNightClassField(),modifyForm.getRoomNumberField(),modifyForm.getMinuteDurationField(),modifyForm.getDescriptionField(),modifyForm.getCommentaryField(),modifyForm.getGoalDescriptionField(),modifyForm.getPriceField(),modifyForm.getTeacherField(),modifyForm.getInstrumentField());
+                    new Control().modifyLesson(newLesson);
                 }
 
             } catch (ConnectionException e) {

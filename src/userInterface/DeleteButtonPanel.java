@@ -1,28 +1,29 @@
 package userInterface;
 
-import business.LessonBusiness;
 import controller.Control;
 import exception.ConnectionException;
-import exception.DescriptionException;
 import model.Lesson;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
-public class InsertButtonPanel extends JPanel {
+public class DeleteButtonPanel extends JPanel{
     JButton cancelButton,validateButton;
     MainWindow mainWindow;
-    InsertForm insertForm;
-    public InsertButtonPanel(MainWindow mainWindow,InsertForm insertForm){
+    JTable table;
+    ArrayList<Lesson> lessons;
+    public DeleteButtonPanel(MainWindow mainWindow, JTable lessonTable, ArrayList<Lesson> lessons) {
         this.mainWindow = mainWindow;
-        this.insertForm = insertForm;
+        this.table = lessonTable;
+        this.lessons = lessons;
         cancelButton = new JButton("Cancel");
-        cancelButton.addActionListener(new CancelListener());
-        validateButton = new JButton("Confirm");
-        validateButton.addActionListener(new ValidationListener());
+        cancelButton.addActionListener(new DeleteButtonPanel.CancelListener());
 
+        validateButton = new JButton("Confirm");
+        validateButton.addActionListener(new DeleteButtonPanel.ValidationListener());
 
         this.setLayout(new FlowLayout());
         this.add(cancelButton);
@@ -33,19 +34,22 @@ public class InsertButtonPanel extends JPanel {
     {
         public void actionPerformed (ActionEvent event)
         {
-            try {
-                int choice =JOptionPane.showConfirmDialog(null,"Souhaitez vous vraiment insérer ce cours ?","Select an option",JOptionPane.YES_OPTION);
-                if(choice == 0){
-                    Lesson lesson = new Lesson(insertForm.getDateField(),insertForm.getIsNightClassField(),insertForm.getRoomNumberField(),insertForm.getMinuteDurationField(),insertForm.getDescriptionField(),insertForm.getCommentaryField(),insertForm.getGoalDescriptionField(),insertForm.getPriceField(),insertForm.getTeacherField(),insertForm.getInstrumentField());
-                    new Control().addNewLesson(lesson);
-                }
 
+            try {
+                int choice =JOptionPane.showConfirmDialog(null,"Souhaitez vous vraiment supprimer ce cours ?","Select an option",JOptionPane.YES_OPTION);
+                if(choice == 0){
+                    int rowSelected = table.getSelectedRow();
+                    Lesson lesson = lessons.get(rowSelected);
+                    new Control().deleteLesson(lesson);
+                    mainWindow.getContentPane().removeAll();
+                    mainWindow.getContentPane().add(new WelcomePanel());
+                    mainWindow.getContentPane().repaint();
+                    mainWindow.setVisible(true);
+                }
             } catch (ConnectionException e) {
                 e.printStackTrace();
             }
-            catch (DescriptionException e) {
-                e.printStackTrace();
-            }
+
         }
     }
     private class CancelListener implements ActionListener

@@ -2,19 +2,24 @@ package userInterface;
 
 import controller.Control;
 import exception.ConnectionException;
+import model.Instrument;
+import model.Teacher;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class InsertForm extends JPanel {
-        private JLabel description, roomNumber,date,minuteDuration,price,isNightClass,commentary,goalDescription,category ;
+        private JLabel description, roomNumber,date,minuteDuration,price,isNightClass,commentary,goalDescription,instrument,teacher ;
         private JTextField descriptionField;
         private JTextArea commentaryField,goalDescriptionField;
         private JSpinner roomNumberField,dateField,minuteDurationField,priceField;
         private JCheckBox isNightClassField;
-        private JComboBox categoryField;
-        private String [] categories;
+        private JComboBox instrumentField,teacherField;
+        private String[] instruments,teachers;
         private MainWindow mainWindow;
 
         public InsertForm(MainWindow mainWindow) throws ConnectionException {
@@ -36,7 +41,10 @@ public class InsertForm extends JPanel {
                 commentary.setHorizontalAlignment(SwingConstants.RIGHT);
                 goalDescription = new JLabel("Goal Description :");
                 goalDescription.setHorizontalAlignment(SwingConstants.RIGHT);
-                category = new JLabel("Teacher :");
+                instrument = new JLabel("Instrument :");
+                instrument.setHorizontalAlignment(SwingConstants.RIGHT);
+                teacher = new JLabel("Teacher :");
+                teacher.setHorizontalAlignment(SwingConstants.RIGHT);
 
                 //Init des champs
 
@@ -47,8 +55,14 @@ public class InsertForm extends JPanel {
                 dateField = new JSpinner();
                 SpinnerDateModel model = new SpinnerDateModel();
                 dateField.setModel(model);
-                JSpinner.DateEditor editor = new JSpinner.DateEditor(dateField, "dd-MM-yyyy");
+                JSpinner.DateEditor editor = new JSpinner.DateEditor(dateField, "dd-MM-yyyy kk:mm");
                 dateField.setEditor(editor);
+                Calendar cal = Calendar.getInstance();
+                cal.set(Calendar.MILLISECOND,0);
+                cal.set(Calendar.SECOND,0);
+                Date defaultDate = cal.getTime();
+                dateField.setValue(defaultDate);
+
 
                 SpinnerModel modelDuration = new SpinnerNumberModel(60, 60, 240, 30);
                 minuteDurationField = new JSpinner(modelDuration);
@@ -57,11 +71,13 @@ public class InsertForm extends JPanel {
                 isNightClassField = new JCheckBox();
                 commentaryField = new JTextArea();
                 goalDescriptionField = new JTextArea();
-                categories = getCategories();
-                categoryField = new JComboBox();
+                instruments = getInstrumentsString();
+                instrumentField = new JComboBox(instruments);
+                teachers = getTeachersString();
+                teacherField = new JComboBox(teachers);
 
                 //Set du GridLayout
-                this.setLayout(new GridLayout(9,2,5,5));
+                this.setLayout(new GridLayout(10,2,5,5));
                 //Ajout des champs au GridLayout
                 this.add(description);
                 this.add(descriptionField);
@@ -79,8 +95,10 @@ public class InsertForm extends JPanel {
                 this.add(new JScrollPane(commentaryField));
                 this.add(goalDescription);
                 this.add(new JScrollPane(goalDescriptionField));
-                this.add(category);
-                this.add(categoryField);
+                this.add(instrument);
+                this.add(instrumentField);
+                this.add(teacher);
+                this.add(teacherField);
 
         }
         public String getDescriptionField() {
@@ -98,8 +116,12 @@ public class InsertForm extends JPanel {
         public Integer getRoomNumberField() {
                 return (Integer) roomNumberField.getValue();
         }
-        public Date getDateField() {
-                return (Date) dateField.getValue() ;
+        public GregorianCalendar getDateField() {
+                System.out.println(dateField);
+                GregorianCalendar gc = new GregorianCalendar();
+                Date date = (Date) dateField.getValue();
+                gc.setTime(date);
+                return gc;
         }
         public Integer getMinuteDurationField() {
                 return (Integer) minuteDurationField.getValue();
@@ -107,8 +129,46 @@ public class InsertForm extends JPanel {
         public Boolean getIsNightClassField() {
                 return isNightClassField.isSelected();
         }
-        public String [] getCategories() throws ConnectionException {
-                return new Control().getCategoriesString();
+        public Integer getTeacherField(){
+                String teacherField = (String) this.teacherField.getSelectedItem();
+                char[] chars = teacherField.toCharArray();
+                StringBuilder sb = new StringBuilder();
+                for(char c:chars){
+                        if (Character.isDigit(c)){
+                                sb.append(c);
+                        }
+                }
+                String idString = sb.toString();
+                Integer id = Integer.parseInt(idString);
+                return id;
         }
 
+        public Integer getInstrumentField() throws ConnectionException {
+                String instrumentField = (String)this.instrumentField.getSelectedItem();
+                Integer instrumentId = new Control().getInstrumentsId(instrumentField);
+                return instrumentId;
+        }
+
+        public String[] getInstrumentsString() throws ConnectionException {
+                ArrayList<Instrument> instruments = new Control().getInstruments();
+                int nbInstruments = new Control().getNbInstruments();
+                String [] instrumentsName = new String[nbInstruments];
+                int iInstrumentsName = 0;
+                for (Instrument instrument : instruments) {
+                        instrumentsName[iInstrumentsName] = instrument.getName();
+                        iInstrumentsName++;
+                }
+                return instrumentsName;
+        }
+        public String[] getTeachersString() throws ConnectionException {
+                ArrayList<Teacher> teachers = new Control().getTeachers();
+                int nbTeachers = new Control().getNbTeachers();
+                String [] teachersName = new String[nbTeachers];
+                int iTeachersName = 0;
+                for (Teacher teacher : teachers) {
+                        teachersName[iTeachersName] = teacher.getLastName() + " " + teacher.getFirstName() + " (" + teacher.getId() + ")";
+                        iTeachersName++;
+                }
+                return teachersName;
+        }
 }

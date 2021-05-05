@@ -6,6 +6,7 @@ import java.sql.*;
 
 public class SingletonConnection {
     private static Connection connection;
+
     public static Connection getInstance() throws ConnectionException {
 
         if (connection == null) {
