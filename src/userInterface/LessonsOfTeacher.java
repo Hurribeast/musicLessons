@@ -30,6 +30,7 @@ public class LessonsOfTeacher extends JPanel {
         this.displayButton.addActionListener(new ResearchListener());
         add(displayButton, BorderLayout.SOUTH);
         this.namesComboBox.setEnabled(true);
+
     }
 
     public String [] setNames() {
