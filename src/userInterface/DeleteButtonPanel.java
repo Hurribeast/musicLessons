@@ -11,20 +11,19 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class DeleteButtonPanel extends JPanel{
-    JButton cancelButton,validateButton;
-    MainWindow mainWindow;
-    JTable table;
-    ArrayList<Lesson> lessons;
+    private JButton cancelButton,validateButton;
+    private MainWindow mainWindow;
+    private JTable table;
+    private ArrayList<Lesson>lessons;
+
     public DeleteButtonPanel(MainWindow mainWindow, JTable lessonTable, ArrayList<Lesson> lessons) {
         this.mainWindow = mainWindow;
         this.table = lessonTable;
         this.lessons = lessons;
         cancelButton = new JButton("Cancel");
         cancelButton.addActionListener(new DeleteButtonPanel.CancelListener());
-
         validateButton = new JButton("Confirm");
         validateButton.addActionListener(new DeleteButtonPanel.ValidationListener());
-
         this.setLayout(new FlowLayout());
         this.add(cancelButton);
         this.add(validateButton);
@@ -36,7 +35,7 @@ public class DeleteButtonPanel extends JPanel{
         {
 
             try {
-                int choice =JOptionPane.showConfirmDialog(null,"Souhaitez vous vraiment supprimer ce cours ?","Select an option",JOptionPane.YES_OPTION);
+                int choice = JOptionPane.showConfirmDialog(null,"Souhaitez vous vraiment supprimer ce cours ?","Select an option",JOptionPane.YES_OPTION);
                 if(choice == 0){
                     int rowSelected = table.getSelectedRow();
                     Lesson lesson = lessons.get(rowSelected);
@@ -49,7 +48,6 @@ public class DeleteButtonPanel extends JPanel{
             } catch (ConnectionException e) {
                 e.printStackTrace();
             }
-
         }
     }
     private class CancelListener implements ActionListener

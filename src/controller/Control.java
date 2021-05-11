@@ -1,5 +1,6 @@
 package controller;
 
+import business.CategoryBusiness;
 import business.InstrumentBusiness;
 import business.LessonBusiness;
 import business.TeacherBusiness;
@@ -14,13 +15,15 @@ public class Control {
     private LessonBusiness lessonBusiness;
     private InstrumentBusiness instrumentBusiness;
     private TeacherBusiness teacherBusiness;
+    private CategoryBusiness categoryBusiness;
 
 
 
     public Control() throws ConnectionException {
         setLessonBusiness();
-        setCategoryBusiness();
+        setInstrumentBusiness();
         setTeacherBusiness();
+        setCategoryBusiness();
     }
 
     public String getInstrumentName(Integer instrumentFk) {
@@ -31,8 +34,11 @@ public class Control {
     public void setLessonBusiness() throws ConnectionException {
         lessonBusiness = new LessonBusiness();
     }
-    public void setCategoryBusiness() throws ConnectionException {
+    public void setInstrumentBusiness() throws ConnectionException {
         instrumentBusiness = new InstrumentBusiness();
+    }
+    public void setCategoryBusiness() throws ConnectionException {
+        categoryBusiness = new CategoryBusiness();
     }
     public void setTeacherBusiness() throws ConnectionException {
         teacherBusiness = new TeacherBusiness();
@@ -77,6 +83,7 @@ public class Control {
 
     public void deleteLesson(Lesson lesson) {
         lessonBusiness.deleteLesson(lesson);
+    }
     public String [] getCategoriesString() {
         return categoryBusiness.getCategoriesString();
     }

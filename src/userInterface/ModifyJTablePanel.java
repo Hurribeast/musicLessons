@@ -3,10 +3,8 @@ package userInterface;
 import model.Lesson;
 
 import javax.swing.table.AbstractTableModel;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class ModifyJTablePanel extends AbstractTableModel {
     private ArrayList<Lesson> lessons;

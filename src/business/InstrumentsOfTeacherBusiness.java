@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class InstrumentsOfTeacherBusiness {
 
-    final int NB_COLUMNS = 8;
+    private final int NB_COLUMNS = 8;
     private InstrumentsOfTeachersDB dbAccess;
 
     public String [][] prepareData(String string) throws ConnectionException {

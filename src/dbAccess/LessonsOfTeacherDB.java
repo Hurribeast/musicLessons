@@ -24,9 +24,11 @@ public class LessonsOfTeacherDB {
     public ArrayList<model.LessonsOfTeacher> getLessonsOfTeacher(Integer teacherID) throws ConnectionException {
         ArrayList<model.LessonsOfTeacher> lessonsOfTeacher = new ArrayList<>();
         try {
-            String sqlQuery = "SELECT l.lesson_date, i.instrument_name, s.last_name, s.first_name FROM lesson l, instrument i, student s, learn x WHERE l.teacher_fk = " + teacherID + " AND l.instrument_fk = i.instrument_id AND x.student_fk = s.student_id AND x.lesson_fk = l.lesson_id;";
+            //String sqlQuery = "SELECT l.lesson_date, i.instrument_name, s.last_name, s.first_name FROM lesson l, instrument i, student s, learn x WHERE l.teacher_fk = " + teacherID + " AND l.instrument_fk = i.instrument_id AND x.student_fk = s.student_id AND x.lesson_fk = l.lesson_id;";
+            String sqlQuery = "SELECT l.lesson_date, i.instrument_name, s.last_name, s.first_name FROM lesson l left join learn x on x.lesson_fk = l.lesson_id left join student s on x.student_fk = s.student_id join instrument i on i.instrument_id = l.instrument_fk WHERE l.teacher_fk = ?;";
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
-            ResultSet results = preparedStatement.executeQuery(sqlQuery);
+            preparedStatement.setInt(1,teacherID);
+            ResultSet results = preparedStatement.executeQuery();
             while(results.next()) {
                 lessonsOfTeacher.add(new model.LessonsOfTeacher(results.getDate("lesson_date"), results.getString("instrument_name"), results.getString("last_name"), results.getString("first_name")));
             }

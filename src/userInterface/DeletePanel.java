@@ -14,16 +14,18 @@ public class DeletePanel extends JPanel {
     private DeleteButtonPanel deleteButtonPanel;
     private MainWindow mainWindow;
     private ArrayList<Lesson> lessons;
+    private ModifyJTablePanel model;
+    private JScrollPane scrollPane;
     public  DeletePanel(MainWindow mainWindow){
         try {
             this.mainWindow = mainWindow;
             lessons = getLessons();
             message = new JLabel("<html><h1>DeletePanel Contenu à changer</h1></html>");
             message.setHorizontalAlignment(SwingConstants.CENTER);
-            ModifyJTablePanel model = new ModifyJTablePanel(lessons);
+            model = new ModifyJTablePanel(lessons);
             lessonTable = new JTable(model);
             lessonTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-            JScrollPane scrollPane = new JScrollPane (lessonTable);
+            scrollPane = new JScrollPane (lessonTable);
             deleteButtonPanel = new DeleteButtonPanel(mainWindow,lessonTable,lessons);
             this.setLayout(new BorderLayout());
             this.add(message, BorderLayout.NORTH);
@@ -37,9 +39,4 @@ public class DeletePanel extends JPanel {
         ArrayList<Lesson> lessons = new Control().getLessons();
         return lessons;
     }
-
-        /*message = new JLabel("<html><h1>DeletePanel Contenu à changer</h1></html>");
-        message.setHorizontalAlignment(SwingConstants.CENTER);
-        this.setLayout(new BorderLayout());
-        this.add(message, BorderLayout.CENTER);*/
 }

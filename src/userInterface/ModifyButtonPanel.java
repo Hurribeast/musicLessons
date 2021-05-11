@@ -13,10 +13,10 @@ import java.util.ArrayList;
 
 public class ModifyButtonPanel extends JPanel{
 
-    JButton cancelButton,validateButton;
-    MainWindow mainWindow;
-    JTable table;
-    ArrayList<Lesson> lessons;
+    private JButton cancelButton,validateButton;
+    private MainWindow mainWindow;
+    private JTable table;
+    private ArrayList<Lesson> lessons;
     public ModifyButtonPanel(MainWindow mainWindow, JTable table, ArrayList<Lesson> lessons){
         this.mainWindow = mainWindow;
         this.table = table;

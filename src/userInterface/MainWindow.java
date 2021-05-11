@@ -11,8 +11,8 @@ import java.awt.event.WindowEvent;
 
 public class MainWindow extends JFrame {
     private JMenuBar menuBar;
-    private JMenu home,lesson,research,listing;
-    private JMenuItem returnHome,insert,modify,delete,instrumentsOfTeacher,lessonsOfTeacher,thirdResearch,goToListing;
+    private JMenu home,lesson,research,listing,priceReduction;
+    private JMenuItem returnHome,insert,modify,delete,instrumentsOfTeacher,lessonsOfTeacher,thirdResearch,goToListing,goToPriceReduction;
     private JPanel welcomePanel;
     private Container container;
 
@@ -67,6 +67,13 @@ public class MainWindow extends JFrame {
         goToListing.addActionListener(new ListingListener());
         listing.add(goToListing);
         menuBar.add(listing);
+
+        //Création de l'onglet Tache métier
+        priceReduction = new JMenu("Tache metier");
+        goToPriceReduction = new JMenuItem("Tache metier");
+        goToPriceReduction.addActionListener(new PriceReductionListener());
+        priceReduction.add(goToPriceReduction);
+        menuBar.add(priceReduction);
 
 
 
@@ -175,7 +182,18 @@ public class MainWindow extends JFrame {
         public void actionPerformed (ActionEvent event)
         {
             container.removeAll();
-            container.add(new ListingPanel());
+            container.add(new ListingPanel(MainWindow.this));
+            container.repaint();
+            MainWindow.this.setVisible(true);
+        }
+    }
+
+    private class PriceReductionListener implements ActionListener
+    {
+        public void actionPerformed (ActionEvent event)
+        {
+            container.removeAll();
+            container.add(new PriceReductionPanel(MainWindow.this));
             container.repaint();
             MainWindow.this.setVisible(true);
         }

@@ -1,7 +1,5 @@
 package model;
 
-import java.util.Date;
-
 public class Instrument {
     private Double heightMax;
     private Double widthMax;

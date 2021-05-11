@@ -142,13 +142,11 @@ public class InsertForm extends JPanel {
                 Integer id = Integer.parseInt(idString);
                 return id;
         }
-
         public Integer getInstrumentField() throws ConnectionException {
                 String instrumentField = (String)this.instrumentField.getSelectedItem();
                 Integer instrumentId = new Control().getInstrumentsId(instrumentField);
                 return instrumentId;
         }
-
         public String[] getInstrumentsString() throws ConnectionException {
                 ArrayList<Instrument> instruments = new Control().getInstruments();
                 int nbInstruments = new Control().getNbInstruments();

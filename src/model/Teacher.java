@@ -65,6 +65,7 @@ public class Teacher {
 
     public String getPhoneNumber() {
         return phoneNumber;
+    }
     public Teacher(String lastName, String firstName, Integer id) {
         this.lastName = lastName;
         this.firstName = firstName;
