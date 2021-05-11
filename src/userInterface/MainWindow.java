@@ -53,12 +53,12 @@ public class MainWindow extends JFrame {
         instrumentsOfTeacher = new JMenuItem("Teacher's instruments");
         instrumentsOfTeacher.addActionListener(new InstrumentsOfTeacherListener());
         lessonsOfTeacher = new JMenuItem("Teacher's lessons");
-        lessonsOfTeacher.addActionListener(new LessonsOfATeacher());
-        thirdResearch = new JMenuItem("Third Research");
-        thirdResearch.addActionListener(new ThirdResearchListener());
+        lessonsOfTeacher.addActionListener(new LessonsOfATeacherListener());
+        lessonsBetweenDates = new JMenuItem("Lessons between date");
+        lessonsBetweenDates.addActionListener(new LessonsBetweenDatesListener());
         research.add(instrumentsOfTeacher);
         research.add(lessonsOfTeacher);
-        research.add(thirdResearch);
+        research.add(lessonsBetweenDates);
         menuBar.add(research);
 
         //Création de l'onglet Listing
@@ -116,6 +116,7 @@ public class MainWindow extends JFrame {
             MainWindow.this.setVisible(true);
         }
     }
+
     private class ModifyListener implements ActionListener
     {
         public void actionPerformed (ActionEvent event)
@@ -126,6 +127,7 @@ public class MainWindow extends JFrame {
             MainWindow.this.setVisible(true);
         }
     }
+
     private class DeleteListener implements ActionListener
     {
         public void actionPerformed (ActionEvent event)
@@ -138,7 +140,7 @@ public class MainWindow extends JFrame {
     }
 
     private class InstrumentsOfTeacherListener implements ActionListener
-    {   // Il faut ajouter la gestion de l'erreur de connexion içi
+    {
         public void actionPerformed (ActionEvent event)
         {
             container.removeAll();
@@ -152,7 +154,8 @@ public class MainWindow extends JFrame {
             MainWindow.this.setVisible(true);
         }
     }
-    private class LessonsOfATeacher implements ActionListener
+
+    private class LessonsOfATeacherListener implements ActionListener
     {
         public void actionPerformed (ActionEvent event)
         {
@@ -166,12 +169,13 @@ public class MainWindow extends JFrame {
             MainWindow.this.setVisible(true);
         }
     }
-    private class ThirdResearchListener implements ActionListener
+
+    private class LessonsBetweenDatesListener implements ActionListener
     {
         public void actionPerformed (ActionEvent event)
         {
             container.removeAll();
-            container.add(new ThirdResearchPanel());
+            container.add(new LessonsBetweenDates(getWindow()));
             container.repaint();
             MainWindow.this.setVisible(true);
         }

@@ -21,7 +21,7 @@ public class LessonsOfTeacherDB {
         this.connection = connection;
     }
 
-    public ArrayList<model.LessonsOfTeacher> getLessonsOfTeacher(Integer teacherID) throws ConnectionException {
+    public ArrayList<model.LessonsOfTeacher> getLessonsOfTeacher(Integer teacherID) {
         ArrayList<model.LessonsOfTeacher> lessonsOfTeacher = new ArrayList<>();
         try {
             //String sqlQuery = "SELECT l.lesson_date, i.instrument_name, s.last_name, s.first_name FROM lesson l, instrument i, student s, learn x WHERE l.teacher_fk = " + teacherID + " AND l.instrument_fk = i.instrument_id AND x.student_fk = s.student_id AND x.lesson_fk = l.lesson_id;";
