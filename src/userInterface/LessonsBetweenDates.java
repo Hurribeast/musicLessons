@@ -65,7 +65,7 @@ public class LessonsBetweenDates extends JPanel {
                 LessonsBetweenDatesController controller = new LessonsBetweenDatesController();
                 Container container = window.getContentPane();
                 container.removeAll();
-                container.add(new LessonsBetweenDatesPanel(controller.getPreparedData(startingDateSQL, endingDateSQL)));
+                container.add(new LessonsBetweenDatesPanel(controller.getData(startingDateSQL, endingDateSQL)));
                 window.setVisible(true);
             } catch (ParseException | ConnectionException exception) {
                 exception.printStackTrace();

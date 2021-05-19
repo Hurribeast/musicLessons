@@ -7,12 +7,12 @@ public class LessonsBetweenDates {
     private GregorianCalendar date;
     private String description;
     private String instrumentName;
-    private double heightMax;
-    private double widthMax;
-    private double weightMax;
+    private Double heightMax;
+    private Double widthMax;
+    private Double weightMax;
     private String categoryName;
 
-    public LessonsBetweenDates(Integer id, GregorianCalendar date, String description, String instrumentName, double heightMax, double widthMax, double weightMax, String categoryName) {
+    public LessonsBetweenDates(Integer id, GregorianCalendar date, String description, String instrumentName, Double heightMax, Double widthMax, Double weightMax, String categoryName) {
         this.id = id;
         this.date = date;
         this.description = description;
@@ -55,27 +55,27 @@ public class LessonsBetweenDates {
         this.instrumentName = instrumentName;
     }
 
-    public double getHeightMax() {
+    public Double getHeightMax() {
         return heightMax;
     }
 
-    public void setHeightMax(double heightMax) {
+    public void setHeightMax(Double heightMax) {
         this.heightMax = heightMax;
     }
 
-    public double getWidthMax() {
+    public Double getWidthMax() {
         return widthMax;
     }
 
-    public void setWidthMax(double widthMax) {
+    public void setWidthMax(Double widthMax) {
         this.widthMax = widthMax;
     }
 
-    public double getWeightMax() {
+    public Double getWeightMax() {
         return weightMax;
     }
 
-    public void setWeightMax(double weightMax) {
+    public void setWeightMax(Double weightMax) {
         this.weightMax = weightMax;
     }
 

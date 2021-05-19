@@ -33,9 +33,9 @@ public class InstrumentsOfTeachersDB {
             while(results.next()) {
                 queryResults.add(new InstrumentsOfTeacherResearch(
                         results.getString("instrument_name"),
-                        results.getFloat("height_max"),
-                        results.getFloat("width_max"),
-                        results.getFloat("weight_max"),
+                        results.getDouble("height_max"),
+                        results.getDouble("width_max"),
+                        results.getDouble("weight_max"),
                         results.getString("category_name"),
                         results.getString("last_name"),
                         results.getString("first_name"),

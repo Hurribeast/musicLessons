@@ -1,35 +1,22 @@
 package userInterface;
 
-import controller.LessonsOfTeacherController;
-import exception.ConnectionException;
+import model.LessonsOfTeacher;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class LessonsOfTeacherPanel extends JPanel {
-
-    final static int MAX_COL = 4;
-    private String [][] data;
-    private String [] columnsNames;
-    private LessonsOfTeacherController controller;
-    private Integer teacherID;
     private JTable table;
-    private JScrollPane scrollPane;
+    private JScrollPane sp;
+    private LessonsOfTeacherJTableModel model;
 
-    public LessonsOfTeacherPanel(Integer id) throws ConnectionException {
-        this.teacherID = id;
-        this.controller = new LessonsOfTeacherController();
-        this.data = controller.getPreparedData(teacherID);
-        setColumnsNames();
-        table = new JTable(data, columnsNames);
-        this.scrollPane = new JScrollPane(table);
-        add(scrollPane, BorderLayout.CENTER);
+    public LessonsOfTeacherPanel(ArrayList<LessonsOfTeacher> data) {
+        setLayout(new BorderLayout());
+        this.model = new LessonsOfTeacherJTableModel(data);
+        this.table = new JTable(model);
+        this.sp = new JScrollPane(table);
+        add(sp, BorderLayout.CENTER);
     }
-    public void setColumnsNames() {
-        this.columnsNames = new String[MAX_COL];
-        this.columnsNames[0] = "Date";
-        this.columnsNames[1] = "Instrument";
-        this.columnsNames[2] = "Nom élève";
-        this.columnsNames[3] = "Prénom élève";
-    }
+
 }

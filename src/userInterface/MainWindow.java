@@ -12,7 +12,7 @@ import java.awt.event.WindowEvent;
 public class MainWindow extends JFrame {
     private JMenuBar menuBar;
     private JMenu home,lesson,research,listing,priceReduction;
-    private JMenuItem returnHome,insert,modify,delete,instrumentsOfTeacher,lessonsOfTeacher,thirdResearch,goToListing,goToPriceReduction;
+    private JMenuItem returnHome,insert,modify,delete,instrumentsOfTeacher,lessonsOfTeacher,lessonsBetweenDates,goToListing,goToPriceReduction;
     private JPanel welcomePanel;
     private Container container;
 
