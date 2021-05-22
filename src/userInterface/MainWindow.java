@@ -4,10 +4,7 @@ import exception.ConnectionException;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 
 public class MainWindow extends JFrame {
     private JMenuBar menuBar;
@@ -15,8 +12,9 @@ public class MainWindow extends JFrame {
     private JMenuItem returnHome,insert,modify,delete,instrumentsOfTeacher,lessonsOfTeacher,lessonsBetweenDates,goToListing,goToPriceReduction;
     private JPanel welcomePanel;
     private Container container;
+    private InactivityTimePanel threadPanel;
 
-    public MainWindow(){
+    public MainWindow(InactivityTimePanel panel){
 
         super("Music Lessons");
         setBounds(100,100,700,500);
@@ -25,6 +23,9 @@ public class MainWindow extends JFrame {
                 System.exit(0);
             }
         });
+
+        this.threadPanel = panel;
+
         //Création de la JMenuBar
         menuBar = new JMenuBar();
         setJMenuBar(menuBar);
@@ -84,11 +85,33 @@ public class MainWindow extends JFrame {
         welcomePanel = new WelcomePanel();
         container.add(welcomePanel,BorderLayout.CENTER);
 
+        // Gestion du click pour le thread d'inactivité
+        addMouseListener(new ClickListener());
+
         setVisible(true);
     }
 
     public MainWindow getWindow() {
         return this;
+    }
+
+    private class ClickListener implements MouseListener {
+        public void mouseClicked(MouseEvent e) {
+            threadPanel.setSeconds(0);
+            threadPanel.setProducerSeconds(0);
+        }
+        public void mouseEntered(MouseEvent e) {
+            //
+        }
+        public void mouseExited(MouseEvent e) {
+            //
+        }
+        public void mousePressed(MouseEvent e) {
+            //
+        }
+        public void mouseReleased(MouseEvent e) {
+            //
+        }
     }
 
     private class HomeListener implements ActionListener
