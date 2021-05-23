@@ -139,12 +139,7 @@ public class LessonDB {
             statement.setInt(9, newLesson.getTeacherFk());
             statement.setInt(10,newLesson.getInstrumentFk());
             statement.setInt(11,newLesson.getId());
-            if(!existingLesson(newLesson)){
-                statement.executeUpdate();
-            }
-            else {
-                System.out.println("Modif impossible Lesson existante");
-            }
+            statement.executeUpdate();
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();

@@ -10,23 +10,18 @@ public class TeacherBusiness {
 
     private TeacherDB teacherDB;
 
-    public ArrayList<Teacher> getTeachers() {
-        return teacherDB.getTeachers();
-
-    }
-
-    public int getNbTeachers() {
-        return teacherDB.getNbTeachers();
-    }
-
-    public Teacher getTeacher(Integer teacherFK) {
-        return teacherDB.getTeacher(teacherFK);
-    }
-
     public TeacherBusiness() throws ConnectionException {
         this.teacherDB = new TeacherDB();
     }
-
+    public ArrayList<Teacher> getTeachers() {
+        return teacherDB.getTeachers();
+    }
+    public int getNbTeachers() {
+        return teacherDB.getNbTeachers();
+    }
+    public Teacher getTeacher(Integer teacherFK) {
+        return teacherDB.getTeacher(teacherFK);
+    }
     public ArrayList<Teacher> getTeachersNameAndSurname() {
         return teacherDB.getTeachersNameAndSurname();
     }

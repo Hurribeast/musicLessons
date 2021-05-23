@@ -1,12 +1,10 @@
 package controller;
 
-import business.CategoryBusiness;
-import business.InstrumentBusiness;
-import business.LessonBusiness;
-import business.TeacherBusiness;
+import business.*;
 import exception.ConnectionException;
 import model.Instrument;
 import model.Lesson;
+import model.Student;
 import model.Teacher;
 
 import java.util.ArrayList;
@@ -16,6 +14,8 @@ public class Control {
     private InstrumentBusiness instrumentBusiness;
     private TeacherBusiness teacherBusiness;
     private CategoryBusiness categoryBusiness;
+    private StudentBusiness studentBusiness;
+    private PriceReductionBusiness priceReductionBusiness;
 
 
 
@@ -24,6 +24,8 @@ public class Control {
         setInstrumentBusiness();
         setTeacherBusiness();
         setCategoryBusiness();
+        setStudentBusiness();
+        setPriceReductionBusiness();
     }
 
     public String getInstrumentName(Integer instrumentFk) {
@@ -43,6 +45,17 @@ public class Control {
     public void setTeacherBusiness() throws ConnectionException {
         teacherBusiness = new TeacherBusiness();
     }
+    public void setStudentBusiness() throws ConnectionException {
+        studentBusiness = new StudentBusiness();
+    }
+    public void setPriceReductionBusiness() throws ConnectionException {
+        this.priceReductionBusiness = new PriceReductionBusiness();
+    }
+
+    public String priceReduction(Integer id) throws ConnectionException {
+        return priceReductionBusiness.PriceReductionDetail(id);
+    }
+
     public void addNewLesson(Lesson lesson) {
         lessonBusiness.addNewLesson(lesson);
     }
@@ -86,5 +99,9 @@ public class Control {
     }
     public String [] getCategoriesString() {
         return categoryBusiness.getCategoriesString();
+    }
+
+    public ArrayList<Student> getStudents() {
+        return studentBusiness.getStudents();
     }
 }

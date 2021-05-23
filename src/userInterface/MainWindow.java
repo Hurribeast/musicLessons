@@ -12,7 +12,7 @@ import java.awt.event.WindowEvent;
 public class MainWindow extends JFrame {
     private JMenuBar menuBar;
     private JMenu home,lesson,research,listing,priceReduction;
-    private JMenuItem returnHome,insert,modify,delete,instrumentsOfTeacher,lessonsOfTeacher,thirdResearch,goToListing,goToPriceReduction;
+    private JMenuItem returnHome,insert,modify,delete,instrumentsOfTeacher,lessonsOfTeacher,lessonsBetweenDates,goToListing,goToPriceReduction;
     private JPanel welcomePanel;
     private Container container;
 
@@ -69,8 +69,8 @@ public class MainWindow extends JFrame {
         menuBar.add(listing);
 
         //Création de l'onglet Tache métier
-        priceReduction = new JMenu("Tache metier");
-        goToPriceReduction = new JMenuItem("Tache metier");
+        priceReduction = new JMenu("Price Discount");
+        goToPriceReduction = new JMenuItem("Price Discount");
         goToPriceReduction.addActionListener(new PriceReductionListener());
         priceReduction.add(goToPriceReduction);
         menuBar.add(priceReduction);

@@ -37,8 +37,17 @@ public class ModifyButtonForm extends JPanel {
             try {
                 int choice =JOptionPane.showConfirmDialog(null,"Souhaitez vous vraiment modifier ce cours ?","Select an option",JOptionPane.YES_OPTION);
                 if(choice == 0){
-                    Lesson newLesson = new Lesson(lesson.getId(), modifyForm.getDateField(),modifyForm.getIsNightClassField(),modifyForm.getRoomNumberField(),modifyForm.getMinuteDurationField(),modifyForm.getDescriptionField(),modifyForm.getCommentaryField(),modifyForm.getGoalDescriptionField(),modifyForm.getPriceField(),modifyForm.getTeacherField(),modifyForm.getInstrumentField());
-                    new Control().modifyLesson(newLesson);
+                    if(modifyForm.getDescriptionField().equals("")){
+                        new JOptionPane().showConfirmDialog(null,"Attention, le champ description est vide","Select an option",JOptionPane.CLOSED_OPTION);
+                    }
+                    else{
+                        Lesson newLesson = new Lesson(lesson.getId(), modifyForm.getDateField(),modifyForm.getIsNightClassField(),modifyForm.getRoomNumberField(),modifyForm.getMinuteDurationField(),modifyForm.getDescriptionField(),modifyForm.getCommentaryField(),modifyForm.getGoalDescriptionField(),modifyForm.getPriceField(),modifyForm.getTeacherField(),modifyForm.getInstrumentField());
+                        new Control().modifyLesson(newLesson);
+                    }
+
+                }
+                if(choice == 0){
+
                 }
 
             } catch (ConnectionException e) {

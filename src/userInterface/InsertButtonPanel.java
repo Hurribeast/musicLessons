@@ -34,8 +34,15 @@ public class InsertButtonPanel extends JPanel {
             try {
                 int choice =JOptionPane.showConfirmDialog(null,"Souhaitez vous vraiment insérer ce cours ?","Select an option",JOptionPane.YES_OPTION);
                 if(choice == 0){
-                    Lesson lesson = new Lesson(insertForm.getDateField(),insertForm.getIsNightClassField(),insertForm.getRoomNumberField(),insertForm.getMinuteDurationField(),insertForm.getDescriptionField(),insertForm.getCommentaryField(),insertForm.getGoalDescriptionField(),insertForm.getPriceField(),insertForm.getTeacherField(),insertForm.getInstrumentField());
-                    new Control().addNewLesson(lesson);
+                    if(insertForm.getDescriptionField().getText().equals("")){
+                        new JOptionPane().showConfirmDialog(null,"Attention, le champ description est vide","Select an option",JOptionPane.CLOSED_OPTION);
+                       // System.out.println("le field de description est vide");
+                    }
+                    else{
+                        Lesson lesson = new Lesson(insertForm.getDateFieldValue(),insertForm.getIsNightClassFieldValue(),insertForm.getRoomNumberFieldValue(),insertForm.getMinuteDurationFieldValue(),insertForm.getDescriptionFieldValue(),insertForm.getCommentaryFieldValue(),insertForm.getGoalDescriptionFieldValue(),insertForm.getPriceFieldValue(),insertForm.getTeacherFieldValue(),insertForm.getInstrumentFieldValue());
+                        new Control().addNewLesson(lesson);
+                    }
+
                 }
             } catch (ConnectionException e) {
                 e.printStackTrace();

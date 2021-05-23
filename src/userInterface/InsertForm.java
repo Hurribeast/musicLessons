@@ -101,35 +101,40 @@ public class InsertForm extends JPanel {
                 this.add(teacherField);
 
         }
-        public String getDescriptionField() {
+
+        public JTextField getDescriptionField() {
+                return descriptionField;
+        }
+
+        public String getDescriptionFieldValue() {
                 return descriptionField.getText();
         }
-        public Double getPriceField() {
+        public Double getPriceFieldValue() {
                 return (Double) priceField.getValue();
         }
-        public String getCommentaryField() {
+        public String getCommentaryFieldValue() {
                 return commentaryField.getText();
         }
-        public String getGoalDescriptionField() {
+        public String getGoalDescriptionFieldValue() {
                 return goalDescriptionField.getText();
         }
-        public Integer getRoomNumberField() {
+        public Integer getRoomNumberFieldValue() {
                 return (Integer) roomNumberField.getValue();
         }
-        public GregorianCalendar getDateField() {
+        public GregorianCalendar getDateFieldValue() {
                 System.out.println(dateField);
                 GregorianCalendar gc = new GregorianCalendar();
                 Date date = (Date) dateField.getValue();
                 gc.setTime(date);
                 return gc;
         }
-        public Integer getMinuteDurationField() {
+        public Integer getMinuteDurationFieldValue() {
                 return (Integer) minuteDurationField.getValue();
         }
-        public Boolean getIsNightClassField() {
+        public Boolean getIsNightClassFieldValue() {
                 return isNightClassField.isSelected();
         }
-        public Integer getTeacherField(){
+        public Integer getTeacherFieldValue(){
                 String teacherField = (String) this.teacherField.getSelectedItem();
                 char[] chars = teacherField.toCharArray();
                 StringBuilder sb = new StringBuilder();
@@ -142,7 +147,7 @@ public class InsertForm extends JPanel {
                 Integer id = Integer.parseInt(idString);
                 return id;
         }
-        public Integer getInstrumentField() throws ConnectionException {
+        public Integer getInstrumentFieldValue() throws ConnectionException {
                 String instrumentField = (String)this.instrumentField.getSelectedItem();
                 Integer instrumentId = new Control().getInstrumentsId(instrumentField);
                 return instrumentId;

@@ -24,7 +24,6 @@ public class ModifyJTablePanel extends AbstractTableModel {
         columnNames.add("Is Night Class");
         columnNames.add("Price");
         columnNames.add("Minutes Duration");
-
     }
 
     @Override
