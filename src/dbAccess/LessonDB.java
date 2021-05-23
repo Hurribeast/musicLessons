@@ -1,15 +1,15 @@
 package dbAccess;
 
+import dbAccessInterface.LessonDBI;
 import exception.ConnectionException;
 import exception.DescriptionException;
-import model.Instrument;
 import model.Lesson;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
-public class LessonDB {
+public class LessonDB implements LessonDBI {
 
     private Connection connection;
 
@@ -55,7 +55,7 @@ public class LessonDB {
         }
     }
 
-    private boolean existingLesson(Lesson lesson) throws SQLException {
+    public boolean existingLesson(Lesson lesson) throws SQLException {
         String sql ="select count(*) \n" +
                         "from lesson \n" +
                         "where is_night_class= ? \n" +

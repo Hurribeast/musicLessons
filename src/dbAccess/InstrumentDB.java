@@ -1,5 +1,6 @@
 package dbAccess;
 
+import dbAccessInterface.InstrumentDBI;
 import exception.ConnectionException;
 import model.Instrument;
 
@@ -9,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class InstrumentDB {
+public class InstrumentDB implements InstrumentDBI {
 
     private Connection connection;
     public InstrumentDB() throws ConnectionException {

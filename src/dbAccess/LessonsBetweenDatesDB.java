@@ -1,5 +1,6 @@
 package dbAccess;
 
+import dbAccessInterface.LessonBetweenDatesDBI;
 import exception.ConnectionException;
 import model.LessonsBetweenDates;
 
@@ -7,7 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
-public class LessonsBetweenDatesDB {
+public class LessonsBetweenDatesDB implements LessonBetweenDatesDBI {
 
     private Connection connection;
 

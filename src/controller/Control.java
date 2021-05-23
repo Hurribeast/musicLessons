@@ -13,7 +13,7 @@ public class Control {
     private LessonBusiness lessonBusiness;
     private InstrumentBusiness instrumentBusiness;
     private TeacherBusiness teacherBusiness;
-    private CategoryBusiness categoryBusiness;
+    //private CategoryBusiness categoryBusiness;
     private StudentBusiness studentBusiness;
     private PriceReductionBusiness priceReductionBusiness;
 
@@ -23,7 +23,7 @@ public class Control {
         setLessonBusiness();
         setInstrumentBusiness();
         setTeacherBusiness();
-        setCategoryBusiness();
+        //setCategoryBusiness();
         setStudentBusiness();
         setPriceReductionBusiness();
     }
@@ -39,9 +39,7 @@ public class Control {
     public void setInstrumentBusiness() throws ConnectionException {
         instrumentBusiness = new InstrumentBusiness();
     }
-    public void setCategoryBusiness() throws ConnectionException {
-        categoryBusiness = new CategoryBusiness();
-    }
+
     public void setTeacherBusiness() throws ConnectionException {
         teacherBusiness = new TeacherBusiness();
     }
@@ -97,9 +95,7 @@ public class Control {
     public void deleteLesson(Lesson lesson) {
         lessonBusiness.deleteLesson(lesson);
     }
-    public String [] getCategoriesString() {
-        return categoryBusiness.getCategoriesString();
-    }
+
 
     public ArrayList<Student> getStudents() {
         return studentBusiness.getStudents();

@@ -1,5 +1,6 @@
 package dbAccess;
 
+import dbAccessInterface.TeacherDBI;
 import exception.ConnectionException;
 import model.Instrument;
 import model.Teacher;
@@ -10,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class TeacherDB {
+public class TeacherDB implements TeacherDBI {
     private Connection connection;
     public TeacherDB() throws ConnectionException {
         setConnection(SingletonConnection.getInstance());

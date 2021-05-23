@@ -9,7 +9,7 @@ public class InactivityTimeJFrame extends JFrame {
     private Container timeContainer;
     private InactivityTimePanel panel;
 
-    public InactivityTimeJFrame() {
+    public InactivityTimeJFrame(MainWindow mainWindow) {
         super("Inactivity time");
         setBounds(0, 0, 500, 200);
         addWindowListener(new WindowAdapter() {
@@ -17,7 +17,7 @@ public class InactivityTimeJFrame extends JFrame {
                 System.exit(0);
             }
         });
-        this.panel = new InactivityTimePanel();
+        this.panel = new InactivityTimePanel(mainWindow);
         this.timeContainer = this.getContentPane();
         this.timeContainer.add(panel);
         setVisible(true);

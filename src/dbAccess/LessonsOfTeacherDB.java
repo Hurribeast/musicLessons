@@ -1,7 +1,7 @@
 package dbAccess;
 
+import dbAccessInterface.LessonsOfTeacherDBI;
 import exception.ConnectionException;
-import userInterface.LessonsOfTeacher;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class LessonsOfTeacherDB {
+public class LessonsOfTeacherDB implements LessonsOfTeacherDBI {
 
     private Connection connection;
 

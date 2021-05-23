@@ -1,5 +1,6 @@
 package dbAccess;
 
+import dbAccessInterface.PriceReductionDBI;
 import exception.ConnectionException;
 import exception.DescriptionException;
 import model.Lesson;
@@ -9,7 +10,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
-public class PriceReductionDB {
+public class PriceReductionDB implements PriceReductionDBI {
 
     private Connection connection;
 

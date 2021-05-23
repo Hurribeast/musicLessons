@@ -5,9 +5,7 @@ import userInterface.MainWindow;
 
 public class Main {
     public static void main(String[] args) {
-        InactivityTimeJFrame inactivityFrame = new InactivityTimeJFrame();
-        new MainWindow(inactivityFrame.getPanel());
-
-
+        MainWindow mainWindow = new MainWindow();
+        InactivityTimeJFrame inactivityFrame = new InactivityTimeJFrame(mainWindow);
     }
 }

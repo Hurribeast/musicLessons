@@ -1,6 +1,7 @@
 package dbAccess;
 
 
+import dbAccessInterface.InstrumentsOfTeachersDBI;
 import exception.ConnectionException;
 import model.InstrumentsOfTeacherResearch;
 
@@ -10,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class InstrumentsOfTeachersDB {
+public class InstrumentsOfTeachersDB implements InstrumentsOfTeachersDBI {
 
     private Connection connection;
 

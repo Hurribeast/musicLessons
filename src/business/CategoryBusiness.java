@@ -2,11 +2,12 @@ package business;
 
 import dbAccess.CategoryDB;
 
+import dbAccessInterface.CategoryDBI;
 import exception.ConnectionException;
 
 
 public class CategoryBusiness {
-    private CategoryDB category;
+    private CategoryDBI category;
 
     public CategoryBusiness() throws ConnectionException {
         setCategory();
@@ -14,10 +15,5 @@ public class CategoryBusiness {
 
     public void setCategory() throws ConnectionException {
         category = new CategoryDB();
-    }
-
-    public String[] getCategoriesString() {
-        String [] aaa =  {"aaa","aaa","aaa"};
-        return  aaa;
     }
 }
