@@ -2,6 +2,9 @@ package controller;
 
 import business.LessonsOfTeacherBusiness;
 import exception.ConnectionException;
+import model.LessonsOfTeacher;
+
+import java.util.ArrayList;
 
 public class LessonsOfTeacherController {
 
@@ -11,8 +14,8 @@ public class LessonsOfTeacherController {
         this.business = new LessonsOfTeacherBusiness();
     }
 
-    public String [][] getPreparedData(Integer id) throws ConnectionException {
-        return business.getPreparedData(id);
+    public ArrayList<LessonsOfTeacher> getData(Integer id) {
+        return business.getData(id);
     }
 
 }

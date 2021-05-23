@@ -3,15 +3,15 @@ package model;
 public class InstrumentsOfTeacherResearch {
 
     private String instrumentName;
-    private double instrumentHeightMax;
-    private double instrumentWidthMax;
-    private double instrumentWeightMax;
+    private Double instrumentHeightMax;
+    private Double instrumentWidthMax;
+    private Double instrumentWeightMax;
     private String categoryName;
     private String teacherLastName;
     private String teacherFirstName;
     private String teacherEmail;
 
-    public InstrumentsOfTeacherResearch(String instrumentName, double instrumentHeightMax, double instrumentWidthMax, double instrumentWeightMax, String categoryName, String teacherLastName, String teacherFirstName, String teacherEmail) {
+    public InstrumentsOfTeacherResearch(String instrumentName, Double instrumentHeightMax, Double instrumentWidthMax, Double instrumentWeightMax, String categoryName, String teacherLastName, String teacherFirstName, String teacherEmail) {
         setInstrumentName(instrumentName);
         setInstrumentHeightMax(instrumentHeightMax);
         setInstrumentWidthMax(instrumentWidthMax);
@@ -26,17 +26,17 @@ public class InstrumentsOfTeacherResearch {
         this.instrumentName = instrumentName;
     }
 
-    public void setInstrumentHeightMax(double instrumentHeightMax) {
+    public void setInstrumentHeightMax(Double instrumentHeightMax) {
         this.instrumentHeightMax = instrumentHeightMax;
     }
 
 
-    public void setInstrumentWidthMax(double instrumentWidthMax) {
+    public void setInstrumentWidthMax(Double instrumentWidthMax) {
         this.instrumentWidthMax = instrumentWidthMax;
     }
 
 
-    public void setInstrumentWeightMax(double instrumentWeightMax) {
+    public void setInstrumentWeightMax(Double instrumentWeightMax) {
         this.instrumentWeightMax = instrumentWeightMax;
     }
 
@@ -63,15 +63,15 @@ public class InstrumentsOfTeacherResearch {
         return instrumentName;
     }
 
-    public double getInstrumentHeightMax() {
+    public Double getInstrumentHeightMax() {
         return instrumentHeightMax;
     }
 
-    public double getInstrumentWidthMax() {
+    public Double getInstrumentWidthMax() {
         return instrumentWidthMax;
     }
 
-    public double getInstrumentWeightMax() {
+    public Double getInstrumentWeightMax() {
         return instrumentWeightMax;
     }
 

@@ -1,5 +1,6 @@
 package userInterface;
 
+import controller.LessonsOfTeacherController;
 import controller.TeacherController;
 import exception.ConnectionException;
 import model.Teacher;
@@ -14,14 +15,16 @@ public class LessonsOfTeacher extends JPanel {
 
     private String [] names;
     private JComboBox<String> namesComboBox;
-    private TeacherController controller;
+    private TeacherController teacherController;
     private JButton displayButton;
     private MainWindow window;
+    private LessonsOfTeacherController controller;
 
     public LessonsOfTeacher(MainWindow window) throws ConnectionException {
         this.window = window;
+        this.controller = new LessonsOfTeacherController();
         setLayout(new BorderLayout());
-        this.controller = new TeacherController();
+        this.teacherController = new TeacherController();
         this.names = setNames();
         this.namesComboBox = new JComboBox<>(names);
         this.namesComboBox.setMaximumRowCount(6);
@@ -34,7 +37,7 @@ public class LessonsOfTeacher extends JPanel {
     }
 
     public String [] setNames() {
-        ArrayList<Teacher> teachers = controller.getTeachersNameAndSurname();
+        ArrayList<Teacher> teachers = teacherController.getTeachersNameAndSurname();
         int iTeacher = 0;
         String [] names = new String [teachers.size()];
         for(Teacher t : teachers) {
@@ -48,12 +51,7 @@ public class LessonsOfTeacher extends JPanel {
         public void actionPerformed(ActionEvent e) {
             Container container = window.getContentPane();
             container.removeAll();
-            try  {
-                container.add(new LessonsOfTeacherPanel(namesComboBox.getSelectedIndex() + 1));
-            } catch(ConnectionException exception) {
-                exception.printStackTrace();
-            }
-
+            container.add(new LessonsOfTeacherPanel(controller.getData(namesComboBox.getSelectedIndex() + 1)));
             container.repaint();
             window.setVisible(true);
         }
