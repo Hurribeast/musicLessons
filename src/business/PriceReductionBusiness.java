@@ -47,22 +47,29 @@ public class PriceReductionBusiness {
         double basePrice;
         for (LessonPriceInfos lessonPriceInfos : lessonsPriceInfos) {
             basePrice = lessonPriceInfos.getPrice();
+            double reduction;
             if (lessonPriceInfos.getNbParticipant() >= 5) {
-                priceWithReduction = basePrice * 0.8;
+                reduction = 0.8;
             } else {
                 if (lessonPriceInfos.getNbParticipant() >= 3) {
-                    priceWithReduction = basePrice * 0.9;
+                    reduction = 0.9;
                 } else {
                     if (lessonPriceInfos.getNbParticipant() >= 2) {
-                        priceWithReduction = basePrice * 0.5;
+                        reduction = 0.95;
                     } else {
-                        priceWithReduction = basePrice;
+                        reduction = 1;
                     }
                 }
             }
+            priceWithReduction = calculateReduction(basePrice,reduction);
+
             lessonsPriceReductionInfos.add(new LessonPriceInfos(lessonPriceInfos.getNbParticipant(), priceWithReduction, lessonPriceInfos.getLesson()));
         }
         return lessonsPriceReductionInfos;
+    }
+
+    private double calculateReduction(double basePrice, double reduction) {
+        return basePrice * reduction;
     }
 
     public String buildStringPrice(ArrayList<LessonPriceInfos> lessonsPriceInfos) {
@@ -86,21 +93,24 @@ public class PriceReductionBusiness {
 
     public double setPriceSecondReduction(double priceFirstReduction, int nbLessons) {
         double priceSecondReduction;
+        int reduction = 0;
         if (nbLessons >= 5) {
-            priceSecondReduction = priceFirstReduction - 20;
+            reduction = 20;
         } else {
             if (nbLessons >= 3) {
-                priceSecondReduction = priceFirstReduction - 10;
+                reduction = 10;
             } else {
                 if (nbLessons >= 2) {
-                    priceSecondReduction = priceFirstReduction - 5;
-                }
-                else {
-                    priceSecondReduction = priceFirstReduction;
+                    reduction = 5;
                 }
             }
         }
+        priceSecondReduction = secondReduction(priceFirstReduction,reduction);
         return priceSecondReduction;
+    }
+
+    private double secondReduction(double priceFirstReduction, int reduction) {
+        return priceFirstReduction - reduction;
     }
 
     public int getNbLessons(Integer id){
