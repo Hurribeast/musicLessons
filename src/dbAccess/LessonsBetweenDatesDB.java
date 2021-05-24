@@ -27,7 +27,7 @@ public class LessonsBetweenDatesDB implements LessonBetweenDatesDBI {
         Date lesson_date_SQL;
 
         int lesson_id;
-        GregorianCalendar lesson_date = new GregorianCalendar();
+        GregorianCalendar lesson_date;
         String lesson_description;
         String instrument_name;
         double height_max;
@@ -36,7 +36,11 @@ public class LessonsBetweenDatesDB implements LessonBetweenDatesDBI {
         String category_name;
 
         try {
-            String sqlQuery = "SELECT l.lesson_id, l.lesson_date, l.lesson_description, i.instrument_name, i.height_max, i.width_max, i.weight_max, c.category_name FROM lesson l, instrument i, category c WHERE l.instrument_fk = i.instrument_id AND i.category_fk = c.category_id AND l.lesson_date > ? AND l.lesson_date < ?";
+            String sqlQuery = "SELECT l.lesson_id, l.lesson_date, l.lesson_description, i.instrument_name, i.height_max, i.width_max, i.weight_max, c.category_name \n" +
+                    "FROM lesson l, instrument i, category c \n" +
+                    "WHERE l.instrument_fk = i.instrument_id \n" +
+                    "AND i.category_fk = c.category_id \n" +
+                    "AND l.lesson_date between ? and ?;";
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
             preparedStatement.setDate(1, startingDate);
             preparedStatement.setDate(2, endingDate);
@@ -44,6 +48,7 @@ public class LessonsBetweenDatesDB implements LessonBetweenDatesDBI {
             while(results.next()) {
                 lesson_id = results.getInt("lesson_id");
                 lesson_date_SQL = results.getDate("lesson_date");
+                lesson_date = new GregorianCalendar();
                 lesson_date.setTime(lesson_date_SQL);
                 lesson_description = results.getString("lesson_description");
                 instrument_name = results.getString("instrument_name");

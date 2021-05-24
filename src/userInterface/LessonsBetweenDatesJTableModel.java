@@ -3,6 +3,7 @@ package userInterface;
 import model.LessonsBetweenDates;
 
 import javax.swing.table.AbstractTableModel;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
@@ -40,7 +41,10 @@ public class LessonsBetweenDatesJTableModel extends AbstractTableModel {
         LessonsBetweenDates value = data.get(rowIndex);
         switch(colIndex) {
             case 0 : return value.getId();
-            case 1 : return value.getDate();
+            case 1 : GregorianCalendar g = value.getDate();
+                SimpleDateFormat format = new SimpleDateFormat("dd MMM yyyy HH:mm");
+                String dateStr = format.format(g.getTime());
+                return dateStr;
             case 2 : return value.getDescription();
             case 3 : return value.getInstrumentName();
             case 4 : return value.getHeightMax();
