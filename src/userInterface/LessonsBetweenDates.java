@@ -18,13 +18,16 @@ public class LessonsBetweenDates extends JPanel {
     private SpinnerDateModel spinnerStartingDateModel, spinnerEndingDateModel;
     private JSpinner.DateEditor startingDateEditor, endingDateEditor;
     private JButton research;
-    private JLabel startingDateLabel, endingDateLabel;
+    private JLabel startingDateLabel, endingDateLabel, title;
     private MainWindow window;
+    private JPanel contentPanel, buttonPanel;
 
     public LessonsBetweenDates(MainWindow window){
         this.window = window;
         this.startingDate = new JSpinner();
         this.endingDate = new JSpinner();
+        this.title = new JLabel("<html><h1>Third research : Night lessons between two dates</h1></html>");
+        this.title.setHorizontalAlignment(SwingConstants.CENTER);
         this.spinnerStartingDateModel = new SpinnerDateModel();
         this.spinnerEndingDateModel = new SpinnerDateModel();
         this.startingDate.setModel(this.spinnerStartingDateModel);
@@ -36,15 +39,22 @@ public class LessonsBetweenDates extends JPanel {
         this.research = new JButton("Research");
         this.startingDateLabel = new JLabel("Starting date : ");
         this.endingDateLabel = new JLabel("Ending date : ");
+        this.startingDateLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        this.endingDateLabel.setHorizontalAlignment(SwingConstants.RIGHT);
         this.research.addActionListener(new ResearchListener());
+        this.contentPanel = new JPanel();
+        this.buttonPanel = new JPanel();
 
-        setLayout(new FlowLayout());
-
-        add(this.startingDateLabel);
-        add(this.startingDate);
-        add(this.endingDateLabel);
-        add(this.endingDate);
-        add(this.research);
+        setLayout(new BorderLayout());
+        this.buttonPanel.add(research);
+        add(title, BorderLayout.NORTH);
+        this.contentPanel.setLayout(new GridLayout(2, 2, 150, 150));
+        this.contentPanel.add(startingDateLabel);
+        this.contentPanel.add(startingDate);
+        this.contentPanel.add(endingDateLabel);
+        this.contentPanel.add(endingDate);
+        add(contentPanel, BorderLayout.CENTER);
+        add(buttonPanel, BorderLayout.SOUTH);
     }
 
     private class ResearchListener implements ActionListener {

@@ -68,7 +68,7 @@ public class PriceReductionBusiness {
         return lessonsPriceReductionInfos;
     }
 
-    private double calculateReduction(double basePrice, double reduction) {
+    public double calculateReduction(double basePrice, double reduction) {
         return basePrice * reduction;
     }
 
@@ -109,7 +109,7 @@ public class PriceReductionBusiness {
         return priceSecondReduction;
     }
 
-    private double secondReduction(double priceFirstReduction, int reduction) {
+    public double secondReduction(double priceFirstReduction, int reduction) {
         return priceFirstReduction - reduction;
     }
 

@@ -19,19 +19,32 @@ public class LessonsOfTeacher extends JPanel {
     private JButton displayButton;
     private MainWindow window;
     private LessonsOfTeacherController controller;
+    private JLabel teachersName, title;
+    private JPanel buttons, teacherPanel;
+
 
     public LessonsOfTeacher(MainWindow window) throws ConnectionException {
+        this.teachersName = new JLabel("Name of the teacher : ");
+        this.title = new JLabel("<html><h1>Second research : Lessons of a teacher</h1></html>");
+        this.title.setHorizontalAlignment(SwingConstants.CENTER);
         this.window = window;
+        this.buttons = new JPanel();
         this.controller = new LessonsOfTeacherController();
+        this.teacherPanel = new JPanel();
+        teacherPanel.setLayout(new GridBagLayout());
         setLayout(new BorderLayout());
         this.teacherController = new TeacherController();
         this.names = setNames();
         this.namesComboBox = new JComboBox<>(names);
         this.namesComboBox.setMaximumRowCount(6);
-        add(namesComboBox, BorderLayout.NORTH);
+        this.add(title, BorderLayout.NORTH);
+        teacherPanel.add(teachersName);
+        teacherPanel.add(namesComboBox);
+        add(teacherPanel, BorderLayout.CENTER);
         this.displayButton = new JButton("Display lessons");
         this.displayButton.addActionListener(new ResearchListener());
-        add(displayButton, BorderLayout.SOUTH);
+        buttons.add(displayButton);
+        add(buttons, BorderLayout.SOUTH);
         this.namesComboBox.setEnabled(true);
 
     }
