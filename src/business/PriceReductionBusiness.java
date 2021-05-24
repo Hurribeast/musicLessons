@@ -10,19 +10,14 @@ import java.util.ArrayList;
 public class PriceReductionBusiness {
     PriceReductionDB priceReductionDB;
     Integer id;
-    Double basePrice,priceFirstReduction,priceSecondReduction;
+    Double basePrice;
     ArrayList<Integer> foreignKeys;
-    ArrayList<LessonPriceInfos> lessonsPriceInfos,lessonsPriceReductionsInfos;
 
     public PriceReductionBusiness(Integer id) throws ConnectionException {
         setPriceReductionDB();
         setID(id);
         setBasePrice(id);
         setLessonsFk(id);
-        setLessonsPriceInfos();
-        setLessonsPriceReductionInfos();
-        setPriceFirstReduction(lessonsPriceReductionsInfos);
-        setPriceSecondReduction();
     }
 
     public void setPriceReductionDB() throws ConnectionException {
@@ -37,14 +32,16 @@ public class PriceReductionBusiness {
     public void setLessonsFk(Integer id) {
         foreignKeys = priceReductionDB.getLessonsFk(id);
     }
-    public void setLessonsPriceInfos() {
+
+
+    public ArrayList<LessonPriceInfos> setLessonsPriceInfos(ArrayList<Integer> foreignKeys) {
         ArrayList<LessonPriceInfos> lessonsPriceInfos = new ArrayList<>();
         for (Integer foreignKey : foreignKeys) {
             lessonsPriceInfos.add(getLessonsPriceAndNbParticipant(foreignKey));
         }
-        this.lessonsPriceInfos = lessonsPriceInfos;
+        return lessonsPriceInfos;
     }
-    public void setLessonsPriceReductionInfos() {
+    public ArrayList<LessonPriceInfos> setLessonsPriceReductionInfos(ArrayList<LessonPriceInfos> lessonsPriceInfos) {
         ArrayList<LessonPriceInfos> lessonsPriceReductionInfos = new ArrayList<>();
         double priceWithReduction;
         double basePrice;
@@ -65,7 +62,7 @@ public class PriceReductionBusiness {
             }
             lessonsPriceReductionInfos.add(new LessonPriceInfos(lessonPriceInfos.getNbParticipant(), priceWithReduction, lessonPriceInfos.getLesson()));
         }
-        this.lessonsPriceReductionsInfos = lessonsPriceReductionInfos;
+        return lessonsPriceReductionInfos;
     }
 
     public String buildStringPrice(ArrayList<LessonPriceInfos> lessonsPriceInfos) {
@@ -79,16 +76,16 @@ public class PriceReductionBusiness {
         return sb.toString();
     }
 
-    public void setPriceFirstReduction(ArrayList<LessonPriceInfos> lessonsPriceInfos){
+    public double setPriceFirstReduction(ArrayList<LessonPriceInfos> lessonsPriceInfos){
         double total = 0;
         for (LessonPriceInfos lessonPriceInfos : lessonsPriceInfos) {
             total += lessonPriceInfos.getPrice();
         }
-        priceFirstReduction = total;
+        return total;
     }
 
-    public void setPriceSecondReduction() {
-        int nbLessons = getNbLessons(id);
+    public double setPriceSecondReduction(double priceFirstReduction, int nbLessons) {
+        double priceSecondReduction;
         if (nbLessons >= 5) {
             priceSecondReduction = priceFirstReduction - 20;
         } else {
@@ -103,6 +100,7 @@ public class PriceReductionBusiness {
                 }
             }
         }
+        return priceSecondReduction;
     }
 
     public int getNbLessons(Integer id){
@@ -117,14 +115,16 @@ public class PriceReductionBusiness {
     public String PriceReductionDetail(){
         StringBuilder sb = new StringBuilder("");
         sb.append("<html><p> Price without reduction : ").append("</p>");
+        ArrayList<LessonPriceInfos> lessonsPriceInfos = setLessonsPriceInfos(foreignKeys);
         sb.append(buildStringPrice(lessonsPriceInfos));
         sb.append("<p></p><p>Lesson Price with first Reduction : \n </p>");
-        sb.append(buildStringPrice(lessonsPriceReductionsInfos));
+        ArrayList<LessonPriceInfos> lessonsPriceReductionInfos =  setLessonsPriceReductionInfos(lessonsPriceInfos);
+        sb.append(buildStringPrice(lessonsPriceReductionInfos));
         sb.append("<p></p>");
+        int nbLessons = getNbLessons(id);
+        double firstPriceReduction = setPriceFirstReduction(lessonsPriceReductionInfos);
+        double priceSecondReduction =  setPriceSecondReduction(firstPriceReduction,nbLessons);
         sb.append("<p>Total lesson with second reduction : ").append(priceSecondReduction).append("€</p> </html>");
         return sb.toString();
     }
-
-
-
 }

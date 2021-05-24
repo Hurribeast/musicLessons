@@ -3,8 +3,6 @@ package thread;
 import userInterface.InactivityTimePanel;
 import userInterface.MainWindow;
 
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 public class ThreadInactivity extends Thread{
     private MainWindow mainWindow;
