@@ -1,6 +1,6 @@
 package dbAccessInterface;
 
-import model.PriceReduction;
+import model.LessonPriceInfos;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -12,5 +12,5 @@ public interface PriceReductionDBI {
     int getNbLessons(Integer id);
     ArrayList<Integer> getLessonsId(Integer id);
     ArrayList<Integer> getLessonsFk(Integer id);
-    PriceReduction getLessonsPriceAndNbParticipant(Integer lessonFk);
+    LessonPriceInfos getLessonsPriceAndNbParticipant(Integer lessonFk);
 }

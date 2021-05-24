@@ -2,13 +2,10 @@ package dbAccess;
 
 import dbAccessInterface.PriceReductionDBI;
 import exception.ConnectionException;
-import exception.DescriptionException;
-import model.Lesson;
-import model.PriceReduction;
+import model.LessonPriceInfos;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 
 public class PriceReductionDB implements PriceReductionDBI {
 
@@ -99,8 +96,8 @@ public class PriceReductionDB implements PriceReductionDBI {
     }
 
 
-    public PriceReduction getLessonsPriceAndNbParticipant(Integer lessonFk) {
-        PriceReduction priceReduction = null;
+    public LessonPriceInfos getLessonsPriceAndNbParticipant(Integer lessonFk) {
+        LessonPriceInfos lessonPriceInfos = null;
         try {
             PreparedStatement sqlRequest = connection.prepareStatement("select count(*)\"nbParticipants\",le.price,le.lesson_description\n" +
                     "from learn l\n" +
@@ -113,13 +110,13 @@ public class PriceReductionDB implements PriceReductionDBI {
             sqlRequest.setInt(1,lessonFk);
             ResultSet result = sqlRequest.executeQuery();
             while (result.next()){
-                priceReduction =new PriceReduction(result.getInt("nbParticipants"),
+                lessonPriceInfos =new LessonPriceInfos(result.getInt("nbParticipants"),
                         result.getDouble("price"),
                         result.getString("lesson_description"));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return  priceReduction;
+        return lessonPriceInfos;
     }
 }

@@ -3,77 +3,106 @@ package business;
 
 import dbAccess.PriceReductionDB;
 import exception.ConnectionException;
-import model.PriceReduction;
+import model.LessonPriceInfos;
 
 import java.util.ArrayList;
 
 public class PriceReductionBusiness {
     PriceReductionDB priceReductionDB;
-    public PriceReductionBusiness() throws ConnectionException {
-       setPriceReductionDB();
+    Integer id;
+    Double basePrice,priceFirstReduction,priceSecondReduction;
+    ArrayList<Integer> foreignKeys;
+    ArrayList<LessonPriceInfos> lessonsPriceInfos,lessonsPriceReductionsInfos;
+
+    public PriceReductionBusiness(Integer id) throws ConnectionException {
+        setPriceReductionDB();
+        setID(id);
+        setBasePrice(id);
+        setLessonsFk(id);
+        setLessonsPriceInfos();
+        setLessonsPriceReductionInfos();
+        setPriceFirstReduction(lessonsPriceReductionsInfos);
+        setPriceSecondReduction();
     }
 
     public void setPriceReductionDB() throws ConnectionException {
         this.priceReductionDB = new PriceReductionDB();
     }
-
-    public String PriceReductionDetail(Integer id) throws ConnectionException {
-        StringBuilder sb = new StringBuilder("");
-        sb.append("<html><p> Base price : ").append(getBasePrice(id)).append("€\n </p>");
-        ArrayList<Integer> foreignKeys = getLessonsFk(id);
-        PriceReduction priceReduction = null;
-        double total = 0;
-        double price = 0;
-        String percent = "0";
-        int nbParticipant =0;
-        sb.append("<p></p><p>Lesson Price with Reduction : \n </p>").append("<p>");
-        for (Integer foreignKey: foreignKeys) {
-            priceReduction = getLessonsPriceAndNbParticipant(foreignKey);
-            price = priceReduction.getPrice();
-            nbParticipant = priceReduction.getNbParticipant();
-            if(nbParticipant >=20 ){
-                price = price * 0.8;
-                percent = "20";
-            }
-            else{
-                if(nbParticipant >=15){
-                    price = price * 0.9;
-                    percent = "10";
-                }
-                else{
-                    if(nbParticipant >=3) {
-                        price = price * 0.95;
-                        percent = "5";
+    public void setID(Integer id) {
+        this.id = id;
+    }
+    public void setBasePrice(Integer id) {
+        basePrice = priceReductionDB.getBasePrice(id);
+    }
+    public void setLessonsFk(Integer id) {
+        foreignKeys = priceReductionDB.getLessonsFk(id);
+    }
+    public void setLessonsPriceInfos() {
+        ArrayList<LessonPriceInfos> lessonsPriceInfos = new ArrayList<>();
+        for (Integer foreignKey : foreignKeys) {
+            lessonsPriceInfos.add(getLessonsPriceAndNbParticipant(foreignKey));
+        }
+        this.lessonsPriceInfos = lessonsPriceInfos;
+    }
+    public void setLessonsPriceReductionInfos() {
+        ArrayList<LessonPriceInfos> lessonsPriceReductionInfos = new ArrayList<>();
+        double priceWithReduction;
+        double basePrice;
+        for (LessonPriceInfos lessonPriceInfos : lessonsPriceInfos) {
+            basePrice = lessonPriceInfos.getPrice();
+            if (lessonPriceInfos.getNbParticipant() >= 5) {
+                priceWithReduction = basePrice * 0.8;
+            } else {
+                if (lessonPriceInfos.getNbParticipant() >= 3) {
+                    priceWithReduction = basePrice * 0.9;
+                } else {
+                    if (lessonPriceInfos.getNbParticipant() >= 2) {
+                        priceWithReduction = basePrice * 0.5;
+                    } else {
+                        priceWithReduction = basePrice;
                     }
                 }
             }
-            total+=price;
-            sb.append(priceReduction.getLesson()).append(" : ").append(nbParticipant).append(" participant(s) =  ").append(price).append("€ ").append("(-").append(percent).append("%)</p><p>");
+            lessonsPriceReductionInfos.add(new LessonPriceInfos(lessonPriceInfos.getNbParticipant(), priceWithReduction, lessonPriceInfos.getLesson()));
         }
+        this.lessonsPriceReductionsInfos = lessonsPriceReductionInfos;
+    }
 
-        sb.append("</p><p>Total lesson with first reduction : "). append( total).append("€</p>");
-        int nbLessons = getNbLessons(id);
-
-        if(nbLessons >= 20 ){
-            total = total - 20;
+    public String buildStringPrice(ArrayList<LessonPriceInfos> lessonsPriceInfos) {
+        StringBuilder sb = new StringBuilder("");
+        double total = 0;
+        for (LessonPriceInfos lessonPriceInfos : lessonsPriceInfos) {
+            total += lessonPriceInfos.getPrice();
+            sb.append("<p>").append(lessonPriceInfos.getLesson()).append(" ").append(lessonPriceInfos.getPrice()).append("</p>");
         }
-        else{
-            if(nbLessons >= 15){
-                total = total - 10;
-            }
-            else{
-                if(nbLessons >= 10) {
-                    total = total - 5;
-                }
-            }
-        }
-        sb.append("<p>Total lesson with second reduction : "). append( total).append("€</p> </html>");
+        sb.append("<p> TOTAL :").append(total).append("€ </p>");
         return sb.toString();
     }
 
-    public double getBasePrice(Integer id){
-        double price = priceReductionDB.getBasePrice(id);
-        return price;
+    public void setPriceFirstReduction(ArrayList<LessonPriceInfos> lessonsPriceInfos){
+        double total = 0;
+        for (LessonPriceInfos lessonPriceInfos : lessonsPriceInfos) {
+            total += lessonPriceInfos.getPrice();
+        }
+        priceFirstReduction = total;
+    }
+
+    public void setPriceSecondReduction() {
+        int nbLessons = getNbLessons(id);
+        if (nbLessons >= 5) {
+            priceSecondReduction = priceFirstReduction - 20;
+        } else {
+            if (nbLessons >= 3) {
+                priceSecondReduction = priceFirstReduction - 10;
+            } else {
+                if (nbLessons >= 2) {
+                    priceSecondReduction = priceFirstReduction - 5;
+                }
+                else {
+                    priceSecondReduction = priceFirstReduction;
+                }
+            }
+        }
     }
 
     public int getNbLessons(Integer id){
@@ -81,11 +110,21 @@ public class PriceReductionBusiness {
         return nbLessons;
     }
 
-    public ArrayList<Integer> getLessonsFk(Integer id){
-        return priceReductionDB.getLessonsFk(id);
-    }
-
-    public PriceReduction getLessonsPriceAndNbParticipant(Integer foreignKey){
+    public LessonPriceInfos getLessonsPriceAndNbParticipant(Integer foreignKey){
         return priceReductionDB.getLessonsPriceAndNbParticipant(foreignKey);
     }
+
+    public String PriceReductionDetail(){
+        StringBuilder sb = new StringBuilder("");
+        sb.append("<html><p> Price without reduction : ").append("</p>");
+        sb.append(buildStringPrice(lessonsPriceInfos));
+        sb.append("<p></p><p>Lesson Price with first Reduction : \n </p>");
+        sb.append(buildStringPrice(lessonsPriceReductionsInfos));
+        sb.append("<p></p>");
+        sb.append("<p>Total lesson with second reduction : ").append(priceSecondReduction).append("€</p> </html>");
+        return sb.toString();
+    }
+
+
+
 }

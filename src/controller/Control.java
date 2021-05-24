@@ -25,7 +25,10 @@ public class Control {
         setTeacherBusiness();
         //setCategoryBusiness();
         setStudentBusiness();
-        setPriceReductionBusiness();
+
+    }
+    public Control(Integer id) throws ConnectionException {
+        setPriceReductionBusiness(id);
     }
 
     public String getInstrumentName(Integer instrumentFk) {
@@ -46,12 +49,12 @@ public class Control {
     public void setStudentBusiness() throws ConnectionException {
         studentBusiness = new StudentBusiness();
     }
-    public void setPriceReductionBusiness() throws ConnectionException {
-        this.priceReductionBusiness = new PriceReductionBusiness();
+    public void setPriceReductionBusiness(Integer id) throws ConnectionException {
+        this.priceReductionBusiness = new PriceReductionBusiness(id);
     }
 
-    public String priceReduction(Integer id) throws ConnectionException {
-        return priceReductionBusiness.PriceReductionDetail(id);
+    public String priceReduction() throws ConnectionException {
+        return priceReductionBusiness.PriceReductionDetail();
     }
 
     public void addNewLesson(Lesson lesson) {
@@ -100,4 +103,5 @@ public class Control {
     public ArrayList<Student> getStudents() {
         return studentBusiness.getStudents();
     }
+
 }

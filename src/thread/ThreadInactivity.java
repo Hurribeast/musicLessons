@@ -23,7 +23,6 @@ public class ThreadInactivity extends Thread{
                 }
                 else{
                     inactivityTimePanel.setSeconds();
-                    System.out.println("ICI");
                 }
                 inactivityTimePanel.repaint();
                 Thread.sleep(1000);

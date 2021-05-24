@@ -1,11 +1,11 @@
 package model;
 
-public class PriceReduction {
+public class LessonPriceInfos {
     private Integer nbParticipant;
     private Double price;
     private String lesson;
 
-    public PriceReduction(Integer nbParticipant, Double price, String lesson) {
+    public LessonPriceInfos(Integer nbParticipant, Double price, String lesson) {
         this.nbParticipant = nbParticipant;
         this.price = price;
         this.lesson = lesson;
